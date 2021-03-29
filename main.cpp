@@ -10,26 +10,30 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     MainWindow w;
+    w.showMaximized();
+    return a.exec();
 
-    BeginBlock beginBlock;
+//    MainWindow w;
 
-    NumberInputBlock input1(&w);
-    NumberInputBlock input2(&w);
+//    BeginBlock beginBlock;
 
-    SumBlock sum;
+//    NumberInputBlock input1(&w);
+//    NumberInputBlock input2(&w);
 
-    NumberOutputBlock output(&w);
+//    SumBlock sum;
 
-    beginBlock.setEnd(&input1);
-    input1.setEnd(&input2);
-    input2.setEnd(&sum);
-    sum.setEnd(&output);
+//    NumberOutputBlock output(&w);
 
-    sum.getSubblock("Argument 1")->LinkTo(input1.getSubblock("Result"));
-    sum.getSubblock("Argument 2")->LinkTo(input2.getSubblock("Result"));
+//    beginBlock.setEnd(&input1);
+//    input1.setEnd(&input2);
+//    input2.setEnd(&sum);
+//    sum.setEnd(&output);
 
-    output.getSubblock("Argument 1")->LinkTo(sum.getSubblock("Result"));
+//    sum.getSubblock("Argument 1")->LinkTo(input1.getSubblock("Result"));
+//    sum.getSubblock("Argument 2")->LinkTo(input2.getSubblock("Result"));
 
-    Programm programm(&beginBlock);
-    programm.execute();
+//    output.getSubblock("Argument 1")->LinkTo(sum.getSubblock("Result"));
+
+//    Programm programm(&beginBlock);
+//    programm.execute();
 }
