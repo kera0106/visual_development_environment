@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     blocks.cpp \
+    graphicscene.cpp \
     main.cpp \
     mainwindow.cpp \
     programm.cpp
@@ -24,8 +25,9 @@ SOURCES += \
 HEADERS += \
     block.h \
     blocks.h \
-    mainwindow.h \
     programm.h
+    graphicscene.h \
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui
