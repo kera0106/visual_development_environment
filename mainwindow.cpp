@@ -9,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->fileLayout->setAlignment(Qt::AlignLeft);
+
+    scene = new GraphicScene();
+        ui->canvas->setScene(scene);
+
+        timer = new QTimer();
+        connect(timer, &QTimer::timeout, this, &MainWindow::slotTimer);
+        timer->start(100);
 }
 
 MainWindow::~MainWindow()
@@ -35,4 +42,16 @@ void MainWindow::on_stop_clicked()
 void MainWindow::on_save_clicked()
 {
     QMessageBox::about(this, "Нажатие кнопки", "Кнопка сохранить");
+}
+
+void MainWindow::slotTimer()
+{
+    timer->stop();
+    scene->setSceneRect(0,0, ui->canvas->width() - 20, ui->canvas->height() - 20);
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    timer->start(100);
+    QWidget::resizeEvent(event);
 }

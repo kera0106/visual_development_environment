@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "graphicscene.h"
+
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -18,15 +20,20 @@ public:
 private slots:
     void on_open_clicked();
 
-//    void on_pushButton_2_clicked();
-
     void on_run_clicked();
 
     void on_stop_clicked();
 
     void on_save_clicked();
 
+    void slotTimer();
+
+private:
+    void resizeEvent(QResizeEvent * event);
+
 private:
     Ui::MainWindow *ui;
+    QTimer *timer;
+    GraphicScene *scene;
 };
 #endif // MAINWINDOW_H
