@@ -20,17 +20,20 @@ class GraphicScene : public QGraphicsScene
 
 public:
     explicit GraphicScene(QObject *parent = 0);
-    bool isConnectArea(QGraphicsSceneMouseEvent *event);
+    bool isInputConnectArea(QGraphicsSceneMouseEvent *event);
+    bool isOutputConnectArea(QGraphicsSceneMouseEvent *event);
     ~GraphicScene();
 
 private:
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
 
 public:
-    std::vector<QVector4D> connectionArea;
+    std::vector<QVector4D> inputConnectionArea;
+    std::vector<QVector4D> outputConnectionArea;
 
     void setButtonType(const ButtonType &value);
 
+    void drawBlock(QGraphicsSceneMouseEvent *);
 private:
     QPointF previousPoint;
     bool isStartPaintLine = false;
