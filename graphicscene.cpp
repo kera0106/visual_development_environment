@@ -57,9 +57,9 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
     const QBrush &brush = QBrush();
     QPainterPath path;
     QFont font;
-    font.setPixelSize(12);
+    font.setPixelSize(14);
     font.setBold(false);
-    font.setFamily("Arial");
+    font.setFamily("Times");
 
     if(buttonType == START){
         addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
