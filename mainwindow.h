@@ -28,6 +28,14 @@ private slots:
 
     void slotTimer();
 
+    void on_start_clicked();
+
+    void on_input_clicked();
+
+    void on_sum_clicked();
+
+    void on_output_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

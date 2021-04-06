@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>529</width>
-    <height>439</height>
+    <width>633</width>
+    <height>575</height>
    </rect>
   </property>
   <property name="cursor">
@@ -136,6 +136,45 @@
      </layout>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="programmView">
+      <item>
+       <widget class="QGraphicsView" name="canvas"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,1,1,1">
+        <item>
+         <widget class="QRadioButton" name="start">
+          <property name="text">
+           <string>Начальный блок</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="input">
+          <property name="text">
+           <string>Ввод числа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="sum">
+          <property name="text">
+           <string>Сумма</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="output">
+          <property name="text">
+           <string>Вывод числа</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
      <widget class="Line" name="line">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
@@ -144,9 +183,6 @@
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-    </item>
-    <item>
-     <widget class="QGraphicsView" name="canvas"/>
     </item>
    </layout>
   </widget>

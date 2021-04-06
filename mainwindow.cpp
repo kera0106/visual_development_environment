@@ -55,3 +55,23 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     timer->start(100);
     QWidget::resizeEvent(event);
 }
+
+void MainWindow::on_start_clicked()
+{
+    scene->setButtonType(START);
+}
+
+void MainWindow::on_input_clicked()
+{
+    scene->setButtonType(INPUT);
+}
+
+void MainWindow::on_sum_clicked()
+{
+    scene->setButtonType(SUM);
+}
+
+void MainWindow::on_output_clicked()
+{
+    scene->setButtonType(OUTPUT);
+}

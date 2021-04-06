@@ -6,6 +6,13 @@
 #include <QTimer>
 #include <QDebug>
 
+
+enum ButtonType {
+    START,
+    INPUT,
+    OUTPUT,
+    SUM
+};
 class GraphicScene : public QGraphicsScene
 {
 
@@ -22,10 +29,12 @@ private:
 public:
     std::vector<QVector4D> connectionArea;
 
+    void setButtonType(const ButtonType &value);
+
 private:
     QPointF previousPoint;
     bool isStartPaintLine = false;
-
+    ButtonType buttonType;
 };
 
 #endif // PAINTSCENE_H
