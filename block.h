@@ -8,7 +8,12 @@
 class Block
 {
 
-protected:
+public:
+
+    enum SubblockType {
+        INPUT,
+        OUTPUT
+    };
 
     class Subblock
     {
@@ -48,28 +53,31 @@ protected:
 
         };
 
-        Subblock() {}
-        Subblock(Block *block): block(block) {}
+        Subblock(SubblockType type = SubblockType::INPUT): type(type) {}
+        Subblock(Block *block, SubblockType type): block(block), type(type) {}
 
         void LinkTo(Subblock* subblock) { this->link = Link(subblock); }
         void LinkTo(Block* block) { this->link = Link(block); }
 
         QVariant getResult() { return link.getResult(); }
+        SubblockType getType() { return type; }
 
     private:
 
         Block *block;
         Link link;
+        SubblockType type;
 
     };
 
-public:
 
     virtual void execute()=0;
 
     void setEnd(Block *block) { this->end = block; }
     QVariant getResult() { return this->result; }
     Subblock* getSubblock(QString name) { return &subblocks[name]; }
+    QList<QString> getSubblocksKeys() {return subblocks.keys(); }
+    QString getName() {return name; }
 
 protected:
 
@@ -78,6 +86,7 @@ protected:
     QVariant result;
     Block* end;
 
+    QString name;
     QMap<QString, Subblock> subblocks;
 
 };

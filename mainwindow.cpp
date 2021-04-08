@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->fileLayout->setAlignment(Qt::AlignLeft);
 
-    scene = new GraphicScene();
+    scene = new GraphicScene(this);
         ui->canvas->setScene(scene);
 
         timer = new QTimer();
