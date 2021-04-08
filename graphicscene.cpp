@@ -1,15 +1,9 @@
 #include "graphicscene.h"
-
-#include <QVector4D>
+#include <iostream>
 
 GraphicScene::GraphicScene(QObject *parent) : QGraphicsScene(parent)
 {
-    //const QPen &pen = QPen();
-    //const QBrush &brush = QBrush();
-    //addRect(300.0, 100.0, 100.0, 50.0, pen, brush);
-    //addRect(300.0, 500.0, 100.0, 50.0, pen, brush);
-    //connectionArea.push_back(QVector4D(300, 100, 400, 150));
-    //connectionArea.push_back(QVector4D(300, 500, 400, 550));
+
 }
 
 GraphicScene::~GraphicScene()
@@ -72,14 +66,14 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
         addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
         path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Ввод числа");
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Result");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Поле ввода");
         this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
     }else if(buttonType == OUTPUT){
         inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+100));
         addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
         addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
         path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Вывод числа");
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Argument1");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Поле вывода");
         this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
     }else if(buttonType == SUM){
         inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+75));
@@ -87,11 +81,44 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
         addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
         path.addText(event->scenePos().x() + 30, event->scenePos().y() + 20, font,  "Сумма");
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Argument1");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Слагаемое 1");
         addLine(event->scenePos().x(), event->scenePos().y() + 55, event->scenePos().x() + 100, event->scenePos().y()+ 55, pen);
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 70, font,  "Argument2");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 70, font,  "Слагаемое 2");
         addLine(event->scenePos().x(), event->scenePos().y() + 75, event->scenePos().x() + 100, event->scenePos().y()+ 75, pen);
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 90, font,  "Result");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 90, font,  "Результат");
+        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+    }
+    else if(buttonType == DIFFERENCE){
+        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
+        addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
+        path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Вычитание");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Уменьшаемое");
+        addLine(event->scenePos().x(), event->scenePos().y() + 55, event->scenePos().x() + 100, event->scenePos().y()+ 55, pen);
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 70, font,  "Вычитаемое");
+        addLine(event->scenePos().x(), event->scenePos().y() + 75, event->scenePos().x() + 100, event->scenePos().y()+ 75, pen);
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 90, font,  "Результат");
+        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+    }
+    else if(buttonType == MULT){
+        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
+        addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
+        path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Умножение");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Множитель 1");
+        addLine(event->scenePos().x(), event->scenePos().y() + 55, event->scenePos().x() + 100, event->scenePos().y()+ 55, pen);
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 70, font,  "Множитель 2");
+        addLine(event->scenePos().x(), event->scenePos().y() + 75, event->scenePos().x() + 100, event->scenePos().y()+ 75, pen);
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 90, font,  "Результат");
+        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+    }
+    else if(buttonType == DIVISION){
+        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
+        addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
+        path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Деление");
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Делимое");
+        addLine(event->scenePos().x(), event->scenePos().y() + 55, event->scenePos().x() + 100, event->scenePos().y()+ 55, pen);
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 70, font,  "Делитель");
+        addLine(event->scenePos().x(), event->scenePos().y() + 75, event->scenePos().x() + 100, event->scenePos().y()+ 75, pen);
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 90, font,  "Результат");
         this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
     }
     previousPoint = event->scenePos();

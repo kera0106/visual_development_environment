@@ -36,6 +36,12 @@ private slots:
 
     void on_output_clicked();
 
+    void on_difference_clicked();
+
+    void on_mult_clicked();
+
+    void on_division_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

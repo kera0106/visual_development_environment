@@ -5,13 +5,17 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTimer>
 #include <QDebug>
+#include <QVector4D>
 
 
 enum ButtonType {
     START,
     INPUT,
     OUTPUT,
-    SUM
+    SUM,
+    DIFFERENCE,
+    MULT,
+    DIVISION
 };
 class GraphicScene : public QGraphicsScene
 {

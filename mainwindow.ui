@@ -141,7 +141,7 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,1,1,1">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,1,0,1,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
@@ -157,6 +157,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QRadioButton" name="output">
+          <property name="text">
+           <string>Вывод числа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QRadioButton" name="sum">
           <property name="text">
            <string>Сумма</string>
@@ -164,9 +171,23 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="output">
+         <widget class="QRadioButton" name="difference">
           <property name="text">
-           <string>Вывод числа</string>
+           <string>Вычитание</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="mult">
+          <property name="text">
+           <string>Умножение</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="division">
+          <property name="text">
+           <string>Деление</string>
           </property>
          </widget>
         </item>
