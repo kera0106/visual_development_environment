@@ -75,7 +75,7 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Result");
         this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
     }else if(buttonType == OUTPUT){
-        inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+30));
+        inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+100));
         addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
         addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
         path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Вывод числа");
