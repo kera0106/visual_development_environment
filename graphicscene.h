@@ -15,7 +15,10 @@ enum ButtonType {
     START,
     INPUT,
     OUTPUT,
-    SUM
+    SUM,
+    DIFF,
+    MULT,
+    DIVIDE
 };
 class GraphicScene : public QGraphicsScene
 {

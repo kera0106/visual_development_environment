@@ -75,3 +75,18 @@ void MainWindow::on_output_clicked()
 {
     scene->setButtonType(OUTPUT);
 }
+
+void MainWindow::on_diff_clicked()
+{
+    scene->setButtonType(DIFF);
+}
+
+void MainWindow::on_mult_clicked()
+{
+    scene->setButtonType(MULT);
+}
+
+void MainWindow::on_divide_clicked()
+{
+    scene->setButtonType(DIVIDE);
+}

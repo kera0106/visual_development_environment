@@ -84,7 +84,7 @@ protected:
     QPointF pos;
 
     QVariant result;
-    Block* end;
+    Block* end = nullptr;
 
     QString name;
     QMap<QString, Subblock> subblocks;

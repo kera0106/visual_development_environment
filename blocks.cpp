@@ -11,6 +11,7 @@ void NumberInputBlock::execute()
 {
     this->result = QInputDialog::getInt(parent, "Ввод числа", "Число:");
 
+
     if (end) {
         end->execute();
     }
@@ -31,6 +32,42 @@ void SumBlock::execute()
     int arg2 = this->subblocks["Argument 2"].getResult().toInt();
 
     this->result = arg1 + arg2;
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void DiffBlock::execute()
+{
+    int arg1 = this->subblocks["Argument 1"].getResult().toInt();
+    int arg2 = this->subblocks["Argument 2"].getResult().toInt();
+
+    this->result = arg1 - arg2;
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void MultBlock::execute()
+{
+    int arg1 = this->subblocks["Argument 1"].getResult().toInt();
+    int arg2 = this->subblocks["Argument 2"].getResult().toInt();
+
+    this->result = arg1 * arg2;
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void DivBlock::execute()
+{
+    int arg1 = this->subblocks["Argument 1"].getResult().toInt();
+    int arg2 = this->subblocks["Argument 2"].getResult().toInt();
+
+    this->result = arg1 / arg2;
 
     if (end) {
         end->execute();

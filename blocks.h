@@ -43,6 +43,51 @@ public:
     void execute();
 };
 
+class DiffBlock: public Block {
+public:
+    DiffBlock() {
+        this->name = "Разность";
+        this->subblocks = {
+            {"Argument 1", Subblock(this, SubblockType::INPUT)},
+            {"Argument 2", Subblock(this, SubblockType::INPUT)},
+            {"Result", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class MultBlock: public Block {
+public:
+    MultBlock() {
+        this->name = "Умножение";
+        this->subblocks = {
+            {"Argument 1", Subblock(this, SubblockType::INPUT)},
+            {"Argument 2", Subblock(this, SubblockType::INPUT)},
+            {"Result", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class DivBlock: public Block {
+public:
+    DivBlock() {
+        this->name = "Деление";
+        this->subblocks = {
+            {"Argument 1", Subblock(this, SubblockType::INPUT)},
+            {"Argument 2", Subblock(this, SubblockType::INPUT)},
+            {"Result", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
 class NumberOutputBlock: public Block {
 public:
     NumberOutputBlock(QWidget *parent): parent(parent) {

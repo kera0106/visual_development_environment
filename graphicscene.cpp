@@ -128,7 +128,20 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
 
         drawBlock<SumBlock>(event);
 
+    } else if(buttonType == DIFF){
+
+        drawBlock<DiffBlock>(event);
+
+    } else if(buttonType == MULT){
+
+        drawBlock<MultBlock>(event);
+
+    } else if(buttonType == DIVIDE){
+
+        drawBlock<DivBlock>(event);
+
     }
+
 
     previousPoint = event->scenePos();
 }
