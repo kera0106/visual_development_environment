@@ -12,7 +12,8 @@ public:
 
     enum SubblockType {
         INPUT,
-        OUTPUT
+        OUTPUT,
+        GOTO
     };
 
     class Subblock
@@ -28,8 +29,8 @@ public:
         struct Link {
             LinkType type;
 
-            Block *blockLink;
-            Subblock *subblockLink;
+            Block *blockLink = nullptr;
+            Subblock *subblockLink = nullptr;
 
             Link():
                 type(NO_LINK), blockLink(nullptr), subblockLink(nullptr) {}
@@ -84,7 +85,7 @@ protected:
     QPointF pos;
 
     QVariant result;
-    Block* end;
+    Block* end = nullptr;
 
     QString name;
     QMap<QString, Subblock> subblocks;

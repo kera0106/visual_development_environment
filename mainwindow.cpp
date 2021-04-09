@@ -31,7 +31,7 @@ void MainWindow::on_open_clicked()
 
 void MainWindow::on_run_clicked()
 {
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка запуск");
+    scene->begin->execute();
 }
 
 void MainWindow::on_stop_clicked()

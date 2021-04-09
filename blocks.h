@@ -52,6 +52,7 @@ public:
         };
     }
 
+    void setEnd(Block *block) { this->end = block; }
     void execute();
 
 private:
