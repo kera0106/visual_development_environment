@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2021-04-06T22:52:12. -->
+<!-- Written by QtCreator 4.11.0, 2021-04-09T00:46:33. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -58,7 +58,8 @@
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
     <value type="QString">-fno-delayed-template-parsing</value>
    </valuelist>
-   <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
+   <value type="bool" key="ClangCodeModel.UseGlobalConfig">false</value>
+   <value type="QString" key="ClangCodeModel.WarningConfigId">{a855d7c1-7ad4-4373-af6c-3d62627ab811}</value>
   </valuemap>
  </data>
  <data>
@@ -287,8 +288,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/User/Desktop/visual_development_environment-1st_iteration/visual_development_environment.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/User/Desktop/visual_development_environment-1st_iteration/visual_development_environment.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">visual_development_environment2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/User/Desktop/repo/visual_development_environment/visual_development_environment.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/User/Desktop/repo/visual_development_environment/visual_development_environment.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
