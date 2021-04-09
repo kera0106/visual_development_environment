@@ -141,7 +141,7 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,1,0,0,0">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,1,0,0,0,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
@@ -214,6 +214,27 @@
          <widget class="QRadioButton" name="divide">
           <property name="text">
            <string>Деление</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="mod">
+          <property name="text">
+           <string>Деление по модулю</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="pow">
+          <property name="text">
+           <string>Возведение в степень</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="sqrt">
+          <property name="text">
+           <string>Корень из числа</string>
           </property>
          </widget>
         </item>

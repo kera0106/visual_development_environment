@@ -18,7 +18,10 @@ enum ButtonType {
     SUM,
     DIFF,
     MULT,
-    DIVIDE
+    DIVIDE,
+    MOD,
+    POW,
+    SQRT
 };
 class GraphicScene : public QGraphicsScene
 {

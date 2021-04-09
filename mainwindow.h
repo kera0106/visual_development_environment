@@ -42,6 +42,12 @@ private slots:
 
     void on_divide_clicked();
 
+    void on_mod_clicked();
+
+    void on_pow_clicked();
+
+    void on_sqrt_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

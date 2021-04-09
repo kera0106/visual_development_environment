@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     NumberInputBlock input1(&w);
     NumberInputBlock input2(&w);
 
-    DivBlock sum;
+    SumBlock sum;
 
     NumberOutputBlock output(&w);
 
@@ -36,4 +36,6 @@ int main(int argc, char *argv[])
     programm.execute();
 
     return a.exec();
+
+
 }

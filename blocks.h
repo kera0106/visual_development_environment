@@ -5,6 +5,7 @@
 
 #include <QInputDialog>
 #include <QMessageBox>
+#include <cmath>
 
 class BeginBlock: public Block {
 public:
@@ -65,6 +66,50 @@ public:
         this->subblocks = {
             {"Argument 1", Subblock(this, SubblockType::INPUT)},
             {"Argument 2", Subblock(this, SubblockType::INPUT)},
+            {"Result", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class ModBlock: public Block {
+public:
+    ModBlock() {
+        this->name = "Модуль";
+        this->subblocks = {
+            {"Argument 1", Subblock(this, SubblockType::INPUT)},
+            {"Argument 2", Subblock(this, SubblockType::INPUT)},
+            {"Result", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class PowBlock: public Block {
+public:
+    PowBlock() {
+        this->name = "Степень";
+        this->subblocks = {
+            {"Argument 1", Subblock(this, SubblockType::INPUT)},
+            {"Argument 2", Subblock(this, SubblockType::INPUT)},
+            {"Result", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class SqrtBlock: public Block {
+public:
+    SqrtBlock() {
+        this->name = "Корень";
+        this->subblocks = {
+            {"Argument", Subblock(this, SubblockType::INPUT)},
             {"Result", Subblock(this, SubblockType::OUTPUT)}
         };
 

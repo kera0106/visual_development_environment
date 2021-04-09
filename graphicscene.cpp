@@ -140,7 +140,21 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
 
         drawBlock<DivBlock>(event);
 
+    } else if(buttonType == MOD){
+
+        drawBlock<ModBlock>(event);
+
+    } else if(buttonType == POW){
+
+        drawBlock<PowBlock>(event);
+
+    } else if(buttonType == SQRT){
+
+        drawBlock<SqrtBlock>(event);
+
     }
+
+
 
 
     previousPoint = event->scenePos();
