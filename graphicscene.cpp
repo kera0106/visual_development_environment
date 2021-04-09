@@ -148,28 +148,39 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
 
     } else if(buttonType == DIFF){
 
-        drawBlock<DiffBlock>(event);
+        auto block = new DiffBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
 
     } else if(buttonType == MULT){
 
-        drawBlock<MultBlock>(event);
+        auto block = new MultBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
 
     } else if(buttonType == DIVIDE){
 
-        drawBlock<DivBlock>(event);
+        auto block = new DivBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
 
     } else if(buttonType == MOD){
 
-        drawBlock<ModBlock>(event);
+        auto block = new ModBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
 
     } else if(buttonType == POW){
 
-        drawBlock<PowBlock>(event);
+        auto block = new PowBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
 
     } else if(buttonType == SQRT){
 
-        drawBlock<SqrtBlock>(event);
-
+        auto block = new SqrtBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
     }
 
 
