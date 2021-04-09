@@ -15,7 +15,13 @@ enum ButtonType {
     START,
     INPUT,
     OUTPUT,
-    SUM
+    SUM,
+    DIFF,
+    MULT,
+    DIVIDE,
+    MOD,
+    POW,
+    SQRT
 };
 
 struct Area {

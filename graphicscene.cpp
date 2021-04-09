@@ -146,7 +146,34 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         blocks.push_back(block);
         drawBlock(block, event);
 
+    } else if(buttonType == DIFF){
+
+        drawBlock<DiffBlock>(event);
+
+    } else if(buttonType == MULT){
+
+        drawBlock<MultBlock>(event);
+
+    } else if(buttonType == DIVIDE){
+
+        drawBlock<DivBlock>(event);
+
+    } else if(buttonType == MOD){
+
+        drawBlock<ModBlock>(event);
+
+    } else if(buttonType == POW){
+
+        drawBlock<PowBlock>(event);
+
+    } else if(buttonType == SQRT){
+
+        drawBlock<SqrtBlock>(event);
+
     }
+
+
+
 
     previousPoint = event->scenePos();
 }
