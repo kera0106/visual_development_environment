@@ -89,12 +89,16 @@ void GraphicScene::drawBlock(T *block, QGraphicsSceneMouseEvent *event) {
                     block,
                     block->getSubblock(keys[i]),
                     QVector4D(event->scenePos().x(), event->scenePos().y()+heightOffset, event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+heightOffset+SUBBLOCK_HEIGHT));
+
         switch (block->getSubblock(keys[i])->getType()) {
         case Block::SubblockType::INPUT:
+        case Block::SubblockType::GOTO:
             inputConnectionArea.push_back(connectionArea);
+            break;
 
         case Block::SubblockType::OUTPUT:
             outputConnectionArea.push_back(connectionArea);
+            break;
         }
 
         heightOffset += SUBBLOCK_HEIGHT;
@@ -182,9 +186,6 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         blocks.push_back(block);
         drawBlock(block, event);
     }
-
-
-
 
     previousPoint = event->scenePos();
 }

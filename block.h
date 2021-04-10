@@ -1,9 +1,9 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include <QMap>
 #include <QPointF>
 #include <QVariant>
+#include <QVector>
 
 class Block
 {
@@ -51,7 +51,6 @@ public:
                     return QVariant();
                 }
             }
-
         };
 
         Subblock(SubblockType type = SubblockType::INPUT): type(type) {}
@@ -76,8 +75,23 @@ public:
 
     void setEnd(Block *block) { this->end = block; }
     QVariant getResult() { return this->result; }
-    Subblock* getSubblock(QString name) { return &subblocks[name]; }
-    QList<QString> getSubblocksKeys() {return subblocks.keys(); }
+
+    Subblock* getSubblock(QString name) {
+        for (auto &el: subblocks) {
+            if (el.first == name) {
+                return &el.second;
+            }
+        }
+    }
+
+    QVector<QString> getSubblocksKeys() {
+        QVector<QString> keys;
+        for (auto &el: subblocks) {
+            keys.push_back(el.first);
+        }
+        return keys;
+    }
+
     QString getName() {return name; }
 
 protected:
@@ -88,7 +102,7 @@ protected:
     Block* end = nullptr;
 
     QString name;
-    QMap<QString, Subblock> subblocks;
+    QVector<QPair<QString, Subblock>> subblocks;
 
 };
 
