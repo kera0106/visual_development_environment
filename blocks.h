@@ -20,7 +20,7 @@ public:
     NumberInputBlock(QWidget *parent): parent(parent) {
         this->name = "Вввод числа";
         this->subblocks = {
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -34,9 +34,9 @@ public:
     SumBlock() {
         this->name = "Сумма";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
-            {"Argument 2", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Слагаемое 1", Subblock(this, SubblockType::INPUT)},
+            {"Слагаемое 2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -49,9 +49,9 @@ public:
     DiffBlock() {
         this->name = "Разность";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
-            {"Argument 2", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Уменьшаемое", Subblock(this, SubblockType::INPUT)},
+            {"Вычитаемое", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -64,9 +64,9 @@ public:
     MultBlock() {
         this->name = "Умножение";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
-            {"Argument 2", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Множитель 1", Subblock(this, SubblockType::INPUT)},
+            {"Множитель 2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -79,9 +79,9 @@ public:
     ModBlock() {
         this->name = "Модуль";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
-            {"Argument 2", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Делимое", Subblock(this, SubblockType::INPUT)},
+            {"Делитель", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -94,9 +94,9 @@ public:
     PowBlock() {
         this->name = "Степень";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
-            {"Argument 2", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Основание", Subblock(this, SubblockType::INPUT)},
+            {"Показатель", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -109,8 +109,8 @@ public:
     SqrtBlock() {
         this->name = "Корень";
         this->subblocks = {
-            {"Argument", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Аргумент", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -123,9 +123,9 @@ public:
     DivBlock() {
         this->name = "Деление";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
-            {"Argument 2", Subblock(this, SubblockType::INPUT)},
-            {"Result", Subblock(this, SubblockType::OUTPUT)}
+            {"Делимое", Subblock(this, SubblockType::INPUT)},
+            {"Делитель", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -138,7 +138,7 @@ public:
     NumberOutputBlock(QWidget *parent): parent(parent) {
         this->name = "Вывод числа";
         this->subblocks = {
-            {"Argument 1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент", Subblock(this, SubblockType::INPUT)},
         };
     }
 

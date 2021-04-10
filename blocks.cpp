@@ -20,7 +20,7 @@ void NumberInputBlock::execute()
 
 void NumberOutputBlock::execute()
 {
-    QMessageBox::information(parent, "Вывод числа", getSubblock("Argument 1")->getResult().toString());
+    QMessageBox::information(parent, "Вывод числа", getSubblock("Аргумент")->getResult().toString());
 
     if (end) {
         end->execute();
@@ -29,8 +29,8 @@ void NumberOutputBlock::execute()
 
 void SumBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
-    int arg2 = getSubblock("Argument 2")->getResult().toInt();
+    int arg1 = getSubblock("Слагаемое 1")->getResult().toInt();
+    int arg2 = getSubblock("Слагаемое 2")->getResult().toInt();
 
     this->result = arg1 + arg2;
 
@@ -41,8 +41,8 @@ void SumBlock::execute()
 
 void DiffBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
-    int arg2 = getSubblock("Argument 2")->getResult().toInt();
+    int arg1 = getSubblock("Уменьшаемое")->getResult().toInt();
+    int arg2 = getSubblock("Вычитаемое")->getResult().toInt();
 
     this->result = arg1 - arg2;
 
@@ -53,8 +53,8 @@ void DiffBlock::execute()
 
 void MultBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
-    int arg2 = getSubblock("Argument 2")->getResult().toInt();
+    int arg1 = getSubblock("Множитель 1")->getResult().toInt();
+    int arg2 = getSubblock("Множитель 2")->getResult().toInt();
 
     this->result = arg1 * arg2;
 
@@ -65,8 +65,8 @@ void MultBlock::execute()
 
 void DivBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
-    int arg2 = getSubblock("Argument 2")->getResult().toInt();
+    int arg1 = getSubblock("Делимое")->getResult().toInt();
+    int arg2 = getSubblock("Делитель")->getResult().toInt();
 
     this->result = arg1 / arg2;
 
@@ -77,8 +77,8 @@ void DivBlock::execute()
 
 void ModBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
-    int arg2 = getSubblock("Argument 2")->getResult().toInt();
+    int arg1 = getSubblock("Делимое")->getResult().toInt();
+    int arg2 = getSubblock("Делитель")->getResult().toInt();
 
     this->result = arg1 % arg2;
 
@@ -89,8 +89,8 @@ void ModBlock::execute()
 
 void PowBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
-    int arg2 = getSubblock("Argument 2")->getResult().toInt();
+    int arg1 = getSubblock("Основание")->getResult().toInt();
+    int arg2 = getSubblock("Показатель")->getResult().toInt();
 
     this->result = pow(arg1, arg2);
 
@@ -101,7 +101,7 @@ void PowBlock::execute()
 
 void SqrtBlock::execute()
 {
-    int arg1 = getSubblock("Argument 1")->getResult().toInt();
+    int arg1 = getSubblock("Аргумент")->getResult().toInt();
 
     this->result = sqrt(arg1);
 
