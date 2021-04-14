@@ -112,3 +112,39 @@ void SqrtBlock::execute()
         end->execute();
     }
 }
+
+void LessBlock::execute()
+{
+    int arg1 = getSubblock("Аргумент1")->getResult().toInt();
+    int arg2 = getSubblock("Аргумент2")->getResult().toInt();
+
+    this->result = arg1 < arg2? arg1: arg2;
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void BiggerBlock::execute()
+{
+    int arg1 = getSubblock("Аргумент1")->getResult().toInt();
+    int arg2 = getSubblock("Аргумент2")->getResult().toInt();
+
+    this->result = arg1 > arg2? arg1: arg2;
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void EqualBlock::execute()
+{
+    int arg1 = getSubblock("Аргумент1")->getResult().toInt();
+    int arg2 = getSubblock("Аргумент2")->getResult().toInt();
+
+    this->result = arg1 == arg2;
+
+    if (end) {
+        end->execute();
+    }
+}

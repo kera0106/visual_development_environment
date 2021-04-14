@@ -148,4 +148,43 @@ public:
 private:
     QWidget *parent;
 };
+
+class LessBlock: public Block{
+public:
+    LessBlock(){
+        this->name = "Меньше";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class EqualBlock: public Block{
+public:
+    EqualBlock(){
+        this->name = "Равно";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class BiggerBlock: public Block{
+public:
+    BiggerBlock(){
+        this->name = "Больше";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
 #endif // BLOCKS_H
