@@ -1,15 +1,20 @@
 #include "graphicscene.h"
 
-#include <QVector4D>
+#define BLOCK_HEADER_HEIGHT 30
+#define SUBBLOCK_HEIGHT 20
+#define BLOCK_WIDTH 100
+
+#define INIT_PEN()     const QPen &pen = QPen(); \
+                       const QBrush &brush = QBrush(); \
+                       QPainterPath path; \
+                       QFont font; \
+                       font.setPixelSize(12); \
+                       font.setBold(false); \
+                       font.setFamily("Arial")
 
 GraphicScene::GraphicScene(QObject *parent) : QGraphicsScene(parent)
 {
-    //const QPen &pen = QPen();
-    //const QBrush &brush = QBrush();
-    //addRect(300.0, 100.0, 100.0, 50.0, pen, brush);
-    //addRect(300.0, 500.0, 100.0, 50.0, pen, brush);
-    //connectionArea.push_back(QVector4D(300, 100, 400, 150));
-    //connectionArea.push_back(QVector4D(300, 500, 400, 550));
+
 }
 
 GraphicScene::~GraphicScene()
@@ -23,14 +28,15 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     QBrush brush;
     brush.setColor(Qt::black);
     brush.setStyle(Qt::SolidPattern);
-    if (!isStartPaintLine){
-            if (!isOutputConnectArea(event)){
+    if (!startArea){
+            auto area = isOutputConnectArea(event);
+            if (!area){
                 drawBlock(event);
                 return;
             }
             previousPoint = event->scenePos();
             addEllipse(event->scenePos().x()-5, event->scenePos().y()-5, 10, 10, pen, brush);
-            isStartPaintLine = true;
+            startArea = area;
     }
 
     else{
@@ -40,60 +46,166 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                         event->scenePos().y(),
                         QPen(Qt::black,1,Qt::SolidLine,Qt::RoundCap));
             previousPoint = event->scenePos();
-            if (isInputConnectArea(event)){
-                isStartPaintLine = false;
+            auto area = isInputConnectArea(event);
+            if (area){
+
+                if (startArea->subblock && startArea->subblock->getType() == Block::SubblockType::GOTO) {
+                    startArea->subblock->LinkTo(area->block);
+                } else if (startArea->subblock && area->subblock){
+                    area->subblock->LinkTo(startArea->subblock);
+                } else {
+                    startArea->block->setEnd(area->block);
+                }
+
+                startArea = nullptr;
                 QPolygonF polygon;
                 polygon << QPoint(event->scenePos().x(), event->scenePos().y()+7) << QPoint(event->scenePos().x()-7, event->scenePos().y()) << QPoint(event->scenePos().x(), event->scenePos().y()-7) << QPoint(event->scenePos().x()+7, event->scenePos().y());
                 addPolygon(polygon, pen, brush);
+
             }
     }
+}
 
+template<typename T>
+void GraphicScene::drawBlock(T *block, QGraphicsSceneMouseEvent *event) {
+    INIT_PEN();
 
+    inputConnectionArea.push_back(Area(
+                                      block,
+                                      nullptr,
+                                      QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+BLOCK_HEADER_HEIGHT)));
+    addRect(event->scenePos().x(), event->scenePos().y(), BLOCK_WIDTH, BLOCK_HEADER_HEIGHT, pen, brush);
+    path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  block->getName());
+
+    int heightOffset = BLOCK_HEADER_HEIGHT;
+    auto keys = block->getSubblocksKeys();
+
+    for (int i=0; i<keys.size(); i++) {
+
+        path.addText(event->scenePos().x() + 5, event->scenePos().y() + heightOffset + 10, font,  keys[i]);
+        addRect(event->scenePos().x(), event->scenePos().y()+heightOffset, 100, SUBBLOCK_HEIGHT, pen, brush);
+
+        Area connectionArea(
+                    block,
+                    block->getSubblock(keys[i]),
+                    QVector4D(event->scenePos().x(), event->scenePos().y()+heightOffset, event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+heightOffset+SUBBLOCK_HEIGHT));
+
+        switch (block->getSubblock(keys[i])->getType()) {
+        case Block::SubblockType::INPUT:
+            inputConnectionArea.push_back(connectionArea);
+            break;
+
+        case Block::SubblockType::OUTPUT:
+        case Block::SubblockType::GOTO:
+            outputConnectionArea.push_back(connectionArea);
+            break;
+        }
+
+        heightOffset += SUBBLOCK_HEIGHT;
+    }
+
+    addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+
+}
+
+template<>
+void GraphicScene::drawBlock(BeginBlock *block, QGraphicsSceneMouseEvent *event) {
+    INIT_PEN();
+
+    addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
+    outputConnectionArea.push_back(Area(
+                                       block,
+                                       nullptr,
+                                       QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+100)));
+    path.addText(event->scenePos().x() + 30, event->scenePos().y() + 50, font,  block->getName());
+    this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
 
 }
 
 void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
-    const QPen &pen = QPen();
-    const QBrush &brush = QBrush();
-    QPainterPath path;
-    QFont font;
-    font.setPixelSize(12);
-    font.setBold(false);
-    font.setFamily("Arial");
 
     if(buttonType == START){
-        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
-        outputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+100));
-        path.addText(event->scenePos().x() + 30, event->scenePos().y() + 50, font,  "Начало");
-        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+        auto block = new BeginBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+        begin = block;
     }else if(buttonType == INPUT){
-        inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+30));
-        outputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y()+30, event->scenePos().x()+100, event->scenePos().y()+100));
-        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
-        addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
-        path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Ввод числа");
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Result");
-        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+
+        QGraphicsView * const localFirst = this->views().first();
+        auto block = new NumberInputBlock((QWidget*)this->parent());
+        blocks.push_back(block);
+        drawBlock(block, event);
+
     }else if(buttonType == OUTPUT){
-        inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+30));
-        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
-        addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
-        path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  "Вывод числа");
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Argument1");
-        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
-    }else if(buttonType == SUM){
-        inputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+75));
-        outputConnectionArea.push_back(QVector4D(event->scenePos().x(), event->scenePos().y()+75, event->scenePos().x()+100, event->scenePos().y()+100));
-        addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
-        addLine(event->scenePos().x(), event->scenePos().y() + 30, event->scenePos().x() + 100, event->scenePos().y()+ 30, pen);
-        path.addText(event->scenePos().x() + 30, event->scenePos().y() + 20, font,  "Сумма");
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 50, font,  "Argument1");
-        addLine(event->scenePos().x(), event->scenePos().y() + 55, event->scenePos().x() + 100, event->scenePos().y()+ 55, pen);
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 70, font,  "Argument2");
-        addLine(event->scenePos().x(), event->scenePos().y() + 75, event->scenePos().x() + 100, event->scenePos().y()+ 75, pen);
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + 90, font,  "Result");
-        this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
+
+        QGraphicsView * const localFirst = this->views().first();
+        auto block = new NumberOutputBlock((QWidget*)this->parent());
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == SUM){
+
+        auto block = new SumBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == DIFF){
+
+        auto block = new DiffBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == MULT){
+
+        auto block = new MultBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == DIVIDE){
+
+        auto block = new DivBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == MOD){
+
+        auto block = new ModBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == POW){
+
+        auto block = new PowBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == SQRT){
+
+        auto block = new SqrtBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == LESS){
+
+        auto block = new LessBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == BIGGER){
+
+        auto block = new BiggerBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == EQUAL){
+
+        auto block = new EqualBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
     }
+
     previousPoint = event->scenePos();
 }
 
@@ -102,20 +214,20 @@ void GraphicScene::setButtonType(const ButtonType &value)
     buttonType = value;
 }
 
-bool GraphicScene::isInputConnectArea(QGraphicsSceneMouseEvent *event){
-    for (int i=0; i<inputConnectionArea.size(); i++){
-        if (inputConnectionArea[i].x() < event->scenePos().x() && inputConnectionArea[i].y() < event->scenePos().y() && inputConnectionArea[i].z() > event->scenePos().x() && inputConnectionArea[i].w() > event->scenePos().y()){
-            return true;
+Area* GraphicScene::isInputConnectArea(QGraphicsSceneMouseEvent *event){
+    for (auto &area: inputConnectionArea){
+        if (area.rect.x() < event->scenePos().x() && area.rect.y() < event->scenePos().y() && area.rect.z() > event->scenePos().x() && area.rect.w() > event->scenePos().y()){
+            return &area;
         }
     }
-    return false;
+    return nullptr;
 }
 
-bool GraphicScene::isOutputConnectArea(QGraphicsSceneMouseEvent *event){
-    for (int i=0; i<outputConnectionArea.size(); i++){
-        if (outputConnectionArea[i].x() < event->scenePos().x() && outputConnectionArea[i].y() < event->scenePos().y() && outputConnectionArea[i].z() > event->scenePos().x() && outputConnectionArea[i].w() > event->scenePos().y()){
-            return true;
+Area* GraphicScene::isOutputConnectArea(QGraphicsSceneMouseEvent *event){
+    for (auto &area: outputConnectionArea){
+        if (area.rect.x() < event->scenePos().x() && area.rect.y() < event->scenePos().y() && area.rect.z() > event->scenePos().x() && area.rect.w() > event->scenePos().y()){
+            return &area;
         }
     }
-    return false;
+    return nullptr;
 }

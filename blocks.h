@@ -5,18 +5,22 @@
 
 #include <QInputDialog>
 #include <QMessageBox>
+#include <cmath>
 
 class BeginBlock: public Block {
 public:
+    BeginBlock() {
+        this->name = "Начало";
+    }
     void execute();
 };
 
 class NumberInputBlock: public Block {
 public:
     NumberInputBlock(QWidget *parent): parent(parent) {
-
+        this->name = "Вввод числа";
         this->subblocks = {
-            {"Result", Subblock(this)}
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -28,11 +32,100 @@ private:
 class SumBlock: public Block {
 public:
     SumBlock() {
-
+        this->name = "Сумма";
         this->subblocks = {
-            {"Argument 1", Subblock(this)},
-            {"Argument 2", Subblock(this)},
-            {"Result", Subblock(this)}
+            {"Слагаемое 1", Subblock(this, SubblockType::INPUT)},
+            {"Слагаемое 2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class DiffBlock: public Block {
+public:
+    DiffBlock() {
+        this->name = "Разность";
+        this->subblocks = {
+            {"Уменьшаемое", Subblock(this, SubblockType::INPUT)},
+            {"Вычитаемое", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class MultBlock: public Block {
+public:
+    MultBlock() {
+        this->name = "Умножение";
+        this->subblocks = {
+            {"Множитель 1", Subblock(this, SubblockType::INPUT)},
+            {"Множитель 2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class ModBlock: public Block {
+public:
+    ModBlock() {
+        this->name = "Модуль";
+        this->subblocks = {
+            {"Делимое", Subblock(this, SubblockType::INPUT)},
+            {"Делитель", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class PowBlock: public Block {
+public:
+    PowBlock() {
+        this->name = "Степень";
+        this->subblocks = {
+            {"Основание", Subblock(this, SubblockType::INPUT)},
+            {"Показатель", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class SqrtBlock: public Block {
+public:
+    SqrtBlock() {
+        this->name = "Корень";
+        this->subblocks = {
+            {"Аргумент", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class DivBlock: public Block {
+public:
+    DivBlock() {
+        this->name = "Деление";
+        this->subblocks = {
+            {"Делимое", Subblock(this, SubblockType::INPUT)},
+            {"Делитель", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
 
     }
@@ -43,14 +136,61 @@ public:
 class NumberOutputBlock: public Block {
 public:
     NumberOutputBlock(QWidget *parent): parent(parent) {
+        this->name = "Вывод числа";
         this->subblocks = {
-            {"Argument 1", Subblock(this)},
+            {"Аргумент", Subblock(this, SubblockType::INPUT)},
         };
     }
 
+    void setEnd(Block *block) { this->end = block; }
     void execute();
 
 private:
     QWidget *parent;
+};
+
+class LessBlock: public Block{
+public:
+    LessBlock(){
+        this->name = "Меньше";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Если", Subblock(this, SubblockType::GOTO)},
+            {"Иначе", Subblock(this, SubblockType::GOTO)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class EqualBlock: public Block{
+public:
+    EqualBlock(){
+        this->name = "Равно";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Если", Subblock(this, SubblockType::GOTO)},
+            {"Иначе", Subblock(this, SubblockType::GOTO)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class BiggerBlock: public Block{
+public:
+    BiggerBlock(){
+        this->name = "Больше";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Если", Subblock(this, SubblockType::GOTO)},
+            {"Иначе", Subblock(this, SubblockType::GOTO)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
 };
 #endif // BLOCKS_H

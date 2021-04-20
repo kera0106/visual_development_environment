@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->fileLayout->setAlignment(Qt::AlignLeft);
 
-    scene = new GraphicScene();
+    scene = new GraphicScene(this);
         ui->canvas->setScene(scene);
 
         timer = new QTimer();
@@ -31,7 +31,7 @@ void MainWindow::on_open_clicked()
 
 void MainWindow::on_run_clicked()
 {
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка запуск");
+    scene->begin->execute();
 }
 
 void MainWindow::on_stop_clicked()
@@ -74,4 +74,49 @@ void MainWindow::on_sum_clicked()
 void MainWindow::on_output_clicked()
 {
     scene->setButtonType(OUTPUT);
+}
+
+void MainWindow::on_diff_clicked()
+{
+    scene->setButtonType(DIFF);
+}
+
+void MainWindow::on_mult_clicked()
+{
+    scene->setButtonType(MULT);
+}
+
+void MainWindow::on_divide_clicked()
+{
+    scene->setButtonType(DIVIDE);
+}
+
+void MainWindow::on_mod_clicked()
+{
+    scene->setButtonType(MOD);
+}
+
+void MainWindow::on_pow_clicked()
+{
+    scene->setButtonType(POW);
+}
+
+void MainWindow::on_sqrt_clicked()
+{
+    scene->setButtonType(SQRT);
+}
+
+void MainWindow::on_less_clicked()
+{
+    scene->setButtonType(LESS);
+}
+
+void MainWindow::on_bigger_clicked()
+{
+    scene->setButtonType(BIGGER);
+}
+
+void MainWindow::on_equal_clicked()
+{
+    scene->setButtonType(EQUAL);
 }

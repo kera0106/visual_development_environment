@@ -141,11 +141,24 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,1,1,1">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
            <string>Начальный блок</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ввод/вывод:</string>
           </property>
          </widget>
         </item>
@@ -157,6 +170,26 @@
          </widget>
         </item>
         <item>
+         <widget class="QRadioButton" name="output">
+          <property name="text">
+           <string>Вывод числа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Математические операции:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QRadioButton" name="sum">
           <property name="text">
            <string>Сумма</string>
@@ -164,9 +197,78 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="output">
+         <widget class="QRadioButton" name="diff">
           <property name="text">
-           <string>Вывод числа</string>
+           <string>Разность</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="mult">
+          <property name="text">
+           <string>Умножение</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="divide">
+          <property name="text">
+           <string>Деление</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="mod">
+          <property name="text">
+           <string>Деление по модулю</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="pow">
+          <property name="text">
+           <string>Возведение в степень</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="sqrt">
+          <property name="text">
+           <string>Корень из числа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Логические:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="less">
+          <property name="text">
+           <string>Меньше</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="bigger">
+          <property name="text">
+           <string>Больше</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="equal">
+          <property name="text">
+           <string>Равно</string>
           </property>
          </widget>
         </item>
