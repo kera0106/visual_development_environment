@@ -105,3 +105,18 @@ void MainWindow::on_sqrt_clicked()
 {
     scene->setButtonType(SQRT);
 }
+
+void MainWindow::on_less_clicked()
+{
+    scene->setButtonType(LESS);
+}
+
+void MainWindow::on_bigger_clicked()
+{
+    scene->setButtonType(BIGGER);
+}
+
+void MainWindow::on_equal_clicked()
+{
+    scene->setButtonType(EQUAL);
+}

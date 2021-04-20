@@ -156,6 +156,8 @@ public:
         this->subblocks = {
             {"Аргумент1", Subblock(this, SubblockType::INPUT)},
             {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Если", Subblock(this, SubblockType::GOTO)},
+            {"Иначе", Subblock(this, SubblockType::GOTO)},
             {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
     }
@@ -169,6 +171,8 @@ public:
         this->subblocks = {
             {"Аргумент1", Subblock(this, SubblockType::INPUT)},
             {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Если", Subblock(this, SubblockType::GOTO)},
+            {"Иначе", Subblock(this, SubblockType::GOTO)},
             {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
     }
@@ -182,6 +186,8 @@ public:
         this->subblocks = {
             {"Аргумент1", Subblock(this, SubblockType::INPUT)},
             {"Аргумент2", Subblock(this, SubblockType::INPUT)},
+            {"Если", Subblock(this, SubblockType::GOTO)},
+            {"Иначе", Subblock(this, SubblockType::GOTO)},
             {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
     }

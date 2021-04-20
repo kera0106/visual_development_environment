@@ -92,11 +92,11 @@ void GraphicScene::drawBlock(T *block, QGraphicsSceneMouseEvent *event) {
 
         switch (block->getSubblock(keys[i])->getType()) {
         case Block::SubblockType::INPUT:
-        case Block::SubblockType::GOTO:
             inputConnectionArea.push_back(connectionArea);
             break;
 
         case Block::SubblockType::OUTPUT:
+        case Block::SubblockType::GOTO:
             outputConnectionArea.push_back(connectionArea);
             break;
         }
@@ -185,6 +185,25 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         auto block = new SqrtBlock();
         blocks.push_back(block);
         drawBlock(block, event);
+
+    } else if(buttonType == LESS){
+
+        auto block = new LessBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == BIGGER){
+
+        auto block = new BiggerBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == EQUAL){
+
+        auto block = new EqualBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
     }
 
     previousPoint = event->scenePos();

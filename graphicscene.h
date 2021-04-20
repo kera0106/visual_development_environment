@@ -21,7 +21,10 @@ enum ButtonType {
     DIVIDE,
     MOD,
     POW,
-    SQRT
+    SQRT,
+    LESS,
+    BIGGER,
+    EQUAL
 };
 
 struct Area {

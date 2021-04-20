@@ -62,6 +62,8 @@ public:
         QVariant getResult() { return link.getResult(); }
         SubblockType getType() { return type; }
 
+        Link getLink() { return link; }
+
     private:
 
         Block *block;

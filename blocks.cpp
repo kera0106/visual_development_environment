@@ -118,9 +118,16 @@ void LessBlock::execute()
     int arg1 = getSubblock("Аргумент1")->getResult().toInt();
     int arg2 = getSubblock("Аргумент2")->getResult().toInt();
 
-    this->result = arg1 < arg2? arg1: arg2;
+    auto true_block = getSubblock("Если")->getLink().blockLink;
+    auto false_block = getSubblock("Иначе")->getLink().blockLink;
 
-    if (end) {
+    this->result = arg1 < arg2;
+
+    if (result.toBool() && true_block) {
+        true_block->execute();
+    } else if (!result.toBool() && false_block) {
+        false_block->execute();
+    } else {
         end->execute();
     }
 }
@@ -130,11 +137,19 @@ void BiggerBlock::execute()
     int arg1 = getSubblock("Аргумент1")->getResult().toInt();
     int arg2 = getSubblock("Аргумент2")->getResult().toInt();
 
-    this->result = arg1 > arg2? arg1: arg2;
+    auto true_block = getSubblock("Если")->getLink().blockLink;
+    auto false_block = getSubblock("Иначе")->getLink().blockLink;
 
-    if (end) {
+    this->result = arg1 > arg2;
+
+    if (result.toBool() && true_block) {
+        true_block->execute();
+    } else if (!result.toBool() && false_block) {
+        false_block->execute();
+    } else {
         end->execute();
     }
+
 }
 
 void EqualBlock::execute()
@@ -142,9 +157,16 @@ void EqualBlock::execute()
     int arg1 = getSubblock("Аргумент1")->getResult().toInt();
     int arg2 = getSubblock("Аргумент2")->getResult().toInt();
 
+    auto true_block = getSubblock("Если")->getLink().blockLink;
+    auto false_block = getSubblock("Иначе")->getLink().blockLink;
+
     this->result = arg1 == arg2;
 
-    if (end) {
+    if (result.toBool() && true_block) {
+        true_block->execute();
+    } else if (!result.toBool() && false_block) {
+        false_block->execute();
+    } else {
         end->execute();
     }
 }
