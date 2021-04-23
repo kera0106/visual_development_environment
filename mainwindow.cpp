@@ -150,3 +150,13 @@ void MainWindow::on_find_clicked()
 {
     scene->setButtonType(FIND);
 }
+
+void MainWindow::on_replace_clicked()
+{
+    scene->setButtonType(REPLACE);
+}
+
+void MainWindow::on_reverse_clicked()
+{
+    scene->setButtonType(REVERSE);
+}

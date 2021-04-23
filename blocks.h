@@ -274,10 +274,36 @@ public:
 class FindBlock: public Block{
 public:
     FindBlock(){
-        this->name = "Поиск подстроки";
+        this->name = "Поиск";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT)},
             {"Подстрока", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class ReplaceBlock: public Block{
+public:
+    ReplaceBlock(){
+        this->name = "Сравнение";
+        this->subblocks = {
+            {"Строка", Subblock(this, SubblockType::INPUT)},
+            {"Подстрока", Subblock(this, SubblockType::INPUT)},
+            {"Позиция", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class ReverseBlock: public Block{
+public:
+    ReverseBlock(){
+        this->name = "Сравнение";
+        this->subblocks = {
+            {"Строка", Subblock(this, SubblockType::INPUT)},
             {"Результат", Subblock(this, SubblockType::OUTPUT)}
         };
     }

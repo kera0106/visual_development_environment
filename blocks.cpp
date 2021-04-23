@@ -245,3 +245,31 @@ void FindBlock::execute()
         end->execute();
     }
 }
+
+void ReplaceBlock::execute()
+{
+    QString string = getSubblock("Строка")->getResult().toString();
+    QString substring = getSubblock("Подстрока")->getResult().toString();
+    int pos = getSubblock("Позиция")->getResult().toInt();
+
+    this->result = string.replace(pos, substring.length(), substring);
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void ReverseBlock::execute()
+{
+    QString string = getSubblock("Строка")->getResult().toString();
+    QString resString = "";
+    for (int i=string.length()-1; i>=0; i--){
+        resString += string[i];
+    }
+
+    this->result = resString;
+
+    if (end) {
+        end->execute();
+    }
+}

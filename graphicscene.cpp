@@ -234,6 +234,18 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         blocks.push_back(block);
         drawBlock(block, event);
 
+    } else if(buttonType == REPLACE){
+
+        auto block = new ReplaceBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == REVERSE){
+
+        auto block = new ReverseBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
     }
 
     previousPoint = event->scenePos();

@@ -30,7 +30,9 @@ enum ButtonType {
     CONCAT,
     SUBSTRING,
     EQUALS,
-    FIND
+    FIND,
+    REPLACE,
+    REVERSE
 };
 
 struct Area {

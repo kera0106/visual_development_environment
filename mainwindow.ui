@@ -141,7 +141,7 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
@@ -290,6 +290,20 @@
          <widget class="QRadioButton" name="find">
           <property name="text">
            <string>Поиск подстроки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="replace">
+          <property name="text">
+           <string>Замена подстроки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="reverse">
+          <property name="text">
+           <string>Разворот строки</string>
           </property>
          </widget>
         </item>
