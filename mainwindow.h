@@ -58,6 +58,10 @@ private slots:
 
     void on_outputString_clicked();
 
+    void on_concat_clicked();
+
+    void on_substring_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

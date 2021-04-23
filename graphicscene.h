@@ -26,7 +26,9 @@ enum ButtonType {
     BIGGER,
     EQUAL,
     INPUT_STR,
-    OUTPUT_STR
+    OUTPUT_STR,
+    CONCAT,
+    SUBSTRING
 };
 
 struct Area {

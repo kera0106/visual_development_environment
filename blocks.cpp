@@ -58,6 +58,31 @@ void SumBlock::execute()
     }
 }
 
+void ConcatBlock::execute()
+{
+    QString arg1 = getSubblock("Строка 1")->getResult().toString();
+    QString arg2 = getSubblock("Строка 2")->getResult().toString();
+
+    this->result = arg1 + arg2;
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void SubstringBlock::execute()
+{
+    QString str = getSubblock("Строка")->getResult().toString();
+    int startStr = getSubblock("Начало")->getResult().toInt();
+    int endStr = getSubblock("Конец")->getResult().toInt();
+
+    this->result = str.mid(startStr, endStr-startStr);
+
+    if (end) {
+        end->execute();
+    }
+}
+
 void DiffBlock::execute()
 {
     int arg1 = getSubblock("Уменьшаемое")->getResult().toInt();

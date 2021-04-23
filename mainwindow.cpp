@@ -130,3 +130,13 @@ void MainWindow::on_outputString_clicked()
 {
     scene->setButtonType(OUTPUT_STR);
 }
+
+void MainWindow::on_concat_clicked()
+{
+    scene->setButtonType(CONCAT);
+}
+
+void MainWindow::on_substring_clicked()
+{
+    scene->setButtonType(SUBSTRING);
+}

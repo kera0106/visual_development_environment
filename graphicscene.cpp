@@ -210,6 +210,18 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         blocks.push_back(block);
         drawBlock(block, event);
 
+    } else if(buttonType == CONCAT){
+
+        auto block = new ConcatBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == SUBSTRING){
+
+        auto block = new SubstringBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
     }
 
     previousPoint = event->scenePos();

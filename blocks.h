@@ -58,6 +58,37 @@ public:
     void execute();
 };
 
+class ConcatBlock: public Block {
+public:
+    ConcatBlock() {
+        this->name = "Конкатенация";
+        this->subblocks = {
+            {"Строка 1", Subblock(this, SubblockType::INPUT)},
+            {"Строка 2", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
+class SubstringBlock: public Block {
+public:
+    SubstringBlock() {
+        this->name = "Подстрока";
+        this->subblocks = {
+            {"Строка", Subblock(this, SubblockType::INPUT)},
+            {"Начало", Subblock(this, SubblockType::INPUT)},
+            {"Конец", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+
+    void execute();
+};
+
 class DiffBlock: public Block {
 public:
     DiffBlock() {
