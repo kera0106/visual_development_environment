@@ -255,4 +255,32 @@ public:
     }
     void execute();
 };
+
+class EqualsBlock: public Block{
+public:
+    EqualsBlock(){
+        this->name = "Сравнение";
+        this->subblocks = {
+            {"Строка 1", Subblock(this, SubblockType::INPUT)},
+            {"Строка 2", Subblock(this, SubblockType::INPUT)},
+            {"Равны", Subblock(this, SubblockType::GOTO)},
+            {"Не равны", Subblock(this, SubblockType::GOTO)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
+
+class FindBlock: public Block{
+public:
+    FindBlock(){
+        this->name = "Поиск подстроки";
+        this->subblocks = {
+            {"Строка", Subblock(this, SubblockType::INPUT)},
+            {"Подстрока", Subblock(this, SubblockType::INPUT)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+    }
+    void execute();
+};
 #endif // BLOCKS_H

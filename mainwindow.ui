@@ -141,7 +141,7 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
@@ -276,6 +276,20 @@
          <widget class="QRadioButton" name="substring">
           <property name="text">
            <string>Извлечение подстроки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="equals">
+          <property name="text">
+           <string>Сравнение строк</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="find">
+          <property name="text">
+           <string>Поиск подстроки</string>
           </property>
          </widget>
         </item>

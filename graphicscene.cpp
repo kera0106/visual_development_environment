@@ -222,6 +222,18 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
         blocks.push_back(block);
         drawBlock(block, event);
 
+    } else if(buttonType == EQUALS){
+
+        auto block = new EqualsBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == FIND){
+
+        auto block = new FindBlock();
+        blocks.push_back(block);
+        drawBlock(block, event);
+
     }
 
     previousPoint = event->scenePos();

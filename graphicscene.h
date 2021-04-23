@@ -28,7 +28,9 @@ enum ButtonType {
     INPUT_STR,
     OUTPUT_STR,
     CONCAT,
-    SUBSTRING
+    SUBSTRING,
+    EQUALS,
+    FIND
 };
 
 struct Area {

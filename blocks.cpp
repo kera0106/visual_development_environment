@@ -214,3 +214,34 @@ void EqualBlock::execute()
         end->execute();
     }
 }
+
+void EqualsBlock::execute()
+{
+    QString arg1 = getSubblock("Строка 1")->getResult().toString();
+    QString arg2 = getSubblock("Строка 2")->getResult().toString();
+
+    auto true_block = getSubblock("Равны")->getLink().blockLink;
+    auto false_block = getSubblock("Не равны")->getLink().blockLink;
+
+    this->result = arg1 == arg2;
+
+    if (result.toBool() && true_block) {
+        true_block->execute();
+    } else if (!result.toBool() && false_block) {
+        false_block->execute();
+    } else {
+        end->execute();
+    }
+}
+
+void FindBlock::execute()
+{
+    QString string = getSubblock("Строка")->getResult().toString();
+    QString substring = getSubblock("Подстрока")->getResult().toString();
+
+    this->result = string.indexOf(substring);
+
+    if (end) {
+        end->execute();
+    }
+}

@@ -140,3 +140,13 @@ void MainWindow::on_substring_clicked()
 {
     scene->setButtonType(SUBSTRING);
 }
+
+void MainWindow::on_equals_clicked()
+{
+    scene->setButtonType(EQUALS);
+}
+
+void MainWindow::on_find_clicked()
+{
+    scene->setButtonType(FIND);
+}
