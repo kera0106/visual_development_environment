@@ -54,6 +54,10 @@ private slots:
 
     void on_equal_clicked();
 
+    void on_inputString_clicked();
+
+    void on_outputString_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

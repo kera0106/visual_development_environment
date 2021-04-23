@@ -24,7 +24,9 @@ enum ButtonType {
     SQRT,
     LESS,
     BIGGER,
-    EQUAL
+    EQUAL,
+    INPUT_STR,
+    OUTPUT_STR
 };
 
 struct Area {

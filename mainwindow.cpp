@@ -120,3 +120,13 @@ void MainWindow::on_equal_clicked()
 {
     scene->setButtonType(EQUAL);
 }
+
+void MainWindow::on_inputString_clicked()
+{
+    scene->setButtonType(INPUT_STR);
+}
+
+void MainWindow::on_outputString_clicked()
+{
+    scene->setButtonType(OUTPUT_STR);
+}

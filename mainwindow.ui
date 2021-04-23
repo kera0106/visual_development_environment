@@ -141,7 +141,7 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
@@ -170,9 +170,23 @@
          </widget>
         </item>
         <item>
+         <widget class="QRadioButton" name="inputString">
+          <property name="text">
+           <string>Ввод строки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QRadioButton" name="output">
           <property name="text">
            <string>Вывод числа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="outputString">
+          <property name="text">
+           <string>Вывод строки</string>
           </property>
          </widget>
         </item>
@@ -247,7 +261,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Логические:</string>
+           <string>Логические операции:</string>
           </property>
          </widget>
         </item>

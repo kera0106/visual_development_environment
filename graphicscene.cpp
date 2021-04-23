@@ -131,20 +131,26 @@ void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
 
         begin = block;
     }else if(buttonType == INPUT){
-
-        QGraphicsView * const localFirst = this->views().first();
         auto block = new NumberInputBlock((QWidget*)this->parent());
         blocks.push_back(block);
         drawBlock(block, event);
 
     }else if(buttonType == OUTPUT){
-
-        QGraphicsView * const localFirst = this->views().first();
         auto block = new NumberOutputBlock((QWidget*)this->parent());
         blocks.push_back(block);
         drawBlock(block, event);
 
-    } else if(buttonType == SUM){
+    } else if(buttonType == INPUT_STR){
+        auto block = new StringInputBlock((QWidget*)this->parent());
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    } else if(buttonType == OUTPUT_STR){
+        auto block = new StringOutputBlock((QWidget*)this->parent());
+        blocks.push_back(block);
+        drawBlock(block, event);
+
+    }else if(buttonType == SUM){
 
         auto block = new SumBlock();
         blocks.push_back(block);

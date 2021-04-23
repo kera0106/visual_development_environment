@@ -27,6 +27,25 @@ void NumberOutputBlock::execute()
     }
 }
 
+void StringInputBlock::execute()
+{
+    this->result = QInputDialog::getText(parent, "Ввод строки", "Строка:");
+
+
+    if (end) {
+        end->execute();
+    }
+}
+
+void StringOutputBlock::execute()
+{
+    QMessageBox::information(parent, "Вывод строки", getSubblock("Аргумент")->getResult().toString());
+
+    if (end) {
+        end->execute();
+    }
+}
+
 void SumBlock::execute()
 {
     int arg1 = getSubblock("Слагаемое 1")->getResult().toInt();

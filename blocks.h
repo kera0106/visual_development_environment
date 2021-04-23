@@ -29,6 +29,20 @@ private:
     QWidget *parent;
 };
 
+class StringInputBlock: public Block {
+public:
+    StringInputBlock(QWidget *parent): parent(parent) {
+        this->name = "Вввод строки";
+        this->subblocks = {
+            {"Результат", Subblock(this, SubblockType::OUTPUT)}
+        };
+
+    }
+    void execute();
+private:
+    QWidget *parent;
+};
+
 class SumBlock: public Block {
 public:
     SumBlock() {
@@ -148,6 +162,23 @@ public:
 private:
     QWidget *parent;
 };
+
+class StringOutputBlock: public Block {
+public:
+    StringOutputBlock(QWidget *parent): parent(parent) {
+        this->name = "Вывод строки";
+        this->subblocks = {
+            {"Аргумент", Subblock(this, SubblockType::INPUT)},
+        };
+    }
+
+    void setEnd(Block *block) { this->end = block; }
+    void execute();
+
+private:
+    QWidget *parent;
+};
+
 
 class LessBlock: public Block{
 public:
