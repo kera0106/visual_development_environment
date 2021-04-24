@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,7 +44,24 @@ void MainWindow::on_stop_clicked()
 
 void MainWindow::on_save_clicked()
 {
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка сохранить");
+    Block *block = scene->getBeginBlock();
+    QVector<Block*> &blocks = scene->getBlocks();
+
+    QJsonArray jsonBlocks;
+
+    for (auto block: blocks) {
+        jsonBlocks.append(block->toJSON());
+    }
+
+    auto fileName = QFileDialog::getSaveFileName(this, tr("Save program"));
+    QFile saveFile(fileName);
+
+    if (!saveFile.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save file.");
+        return;
+    }
+
+    saveFile.write(QJsonDocument(jsonBlocks).toJson());
 }
 
 void MainWindow::slotTimer()

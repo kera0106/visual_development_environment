@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QVector4D>
+#include <QVector>
 
 #include "blocktype.h"
 #include "blocks.h"
@@ -42,7 +43,7 @@ public:
     std::vector<Area> inputConnectionArea;
     std::vector<Area> outputConnectionArea;
 
-    std::vector<Block*> blocks;
+    QVector<Block*> blocks;
     BeginBlock *begin;
 
     void setButtonType(const BlockType &value);
@@ -52,8 +53,12 @@ public:
     void drawBlock(T *block, QGraphicsSceneMouseEvent *);
 
     void drawBlock(QGraphicsSceneMouseEvent *);
+
+    BeginBlock* getBeginBlock() { return this->begin; }
+    QVector<Block*> &getBlocks() { return this->blocks; }
 private:
     QPointF previousPoint;
+    QVector<QPointF> linkPoints;
     Area* startArea = nullptr;
     BlockType buttonType;
 };

@@ -28,12 +28,16 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     QBrush brush;
     brush.setColor(Qt::black);
     brush.setStyle(Qt::SolidPattern);
+
     if (!startArea){
             auto area = isOutputConnectArea(event);
             if (!area){
                 drawBlock(event);
                 return;
             }
+
+            linkPoints = {event->scenePos()};
+
             previousPoint = event->scenePos();
             addEllipse(event->scenePos().x()-5, event->scenePos().y()-5, 10, 10, pen, brush);
             startArea = area;
@@ -45,16 +49,17 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                         event->scenePos().x(),
                         event->scenePos().y(),
                         QPen(Qt::black,1,Qt::SolidLine,Qt::RoundCap));
+            linkPoints.push_back(event->scenePos());
             previousPoint = event->scenePos();
             auto area = isInputConnectArea(event);
             if (area){
 
                 if (startArea->subblock && startArea->subblock->getType() == Block::SubblockType::GOTO) {
-                    startArea->subblock->LinkTo(area->block);
-                } else if (startArea->subblock && area->subblock){
-                    area->subblock->LinkTo(startArea->subblock);
+                    startArea->subblock->LinkTo(area->block, linkPoints);
+                } else if (startArea->subblock && area->subblock) {
+                    area->subblock->LinkTo(startArea->subblock, linkPoints);
                 } else {
-                    startArea->block->setEnd(area->block);
+                    startArea->block->setEnd(area->block, linkPoints);
                 }
 
                 startArea = nullptr;
@@ -125,124 +130,124 @@ void GraphicScene::drawBlock(BeginBlock *block, QGraphicsSceneMouseEvent *event)
 void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
 
     if(buttonType == START){
-        auto block = new BeginBlock(event->pos());
+        auto block = new BeginBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
         begin = block;
     }else if(buttonType == INPUT){
-        auto block = new NumberInputBlock((QWidget*)this->parent(), event->pos());
+        auto block = new NumberInputBlock((QWidget*)this->parent(), event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     }else if(buttonType == OUTPUT){
-        auto block = new NumberOutputBlock((QWidget*)this->parent(), event->pos());
+        auto block = new NumberOutputBlock((QWidget*)this->parent(), event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == INPUT_STR){
-        auto block = new StringInputBlock((QWidget*)this->parent(), event->pos());
+        auto block = new StringInputBlock((QWidget*)this->parent(), event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == OUTPUT_STR){
-        auto block = new StringOutputBlock((QWidget*)this->parent(), event->pos());
+        auto block = new StringOutputBlock((QWidget*)this->parent(), event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     }else if(buttonType == SUM){
 
-        auto block = new SumBlock(event->pos());
+        auto block = new SumBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == DIFF){
 
-        auto block = new DiffBlock(event->pos());
+        auto block = new DiffBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == MULT){
 
-        auto block = new MultBlock(event->pos());
+        auto block = new MultBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == DIVIDE){
 
-        auto block = new DivBlock(event->pos());
+        auto block = new DivBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == MOD){
 
-        auto block = new ModBlock(event->pos());
+        auto block = new ModBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == POW){
 
-        auto block = new PowBlock(event->pos());
+        auto block = new PowBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == SQRT){
 
-        auto block = new SqrtBlock(event->pos());
+        auto block = new SqrtBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == LESS){
 
-        auto block = new LessBlock(event->pos());
+        auto block = new LessBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == BIGGER){
 
-        auto block = new BiggerBlock(event->pos());
+        auto block = new BiggerBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == EQUAL){
 
-        auto block = new EqualBlock(event->pos());
+        auto block = new EqualBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == CONCAT){
 
-        auto block = new ConcatBlock(event->pos());
+        auto block = new ConcatBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == SUBSTRING){
 
-        auto block = new SubstringBlock(event->pos());
+        auto block = new SubstringBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == EQUALS){
 
-        auto block = new EqualsBlock(event->pos());
+        auto block = new EqualsBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == FIND){
 
-        auto block = new FindBlock(event->pos());
+        auto block = new FindBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == REPLACE){
 
-        auto block = new ReplaceBlock(event->pos());
+        auto block = new ReplaceBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 
     } else if(buttonType == REVERSE){
 
-        auto block = new ReverseBlock(event->pos());
+        auto block = new ReverseBlock(event->scenePos());
         blocks.push_back(block);
         drawBlock(block, event);
 

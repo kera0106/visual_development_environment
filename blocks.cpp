@@ -1,10 +1,12 @@
 #include "blocks.h"
 #include <iostream>
 
+int Block::current_id = 0;
+
 void BeginBlock::execute()
 {
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -13,8 +15,8 @@ void NumberInputBlock::execute()
     this->result = QInputDialog::getInt(parent, "Ввод числа", "Число:");
 
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -22,8 +24,8 @@ void NumberOutputBlock::execute()
 {
     QMessageBox::information(parent, "Вывод числа", getSubblock("Аргумент")->getResult().toString());
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -32,8 +34,8 @@ void StringInputBlock::execute()
     this->result = QInputDialog::getText(parent, "Ввод строки", "Строка:");
 
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -41,8 +43,8 @@ void StringOutputBlock::execute()
 {
     QMessageBox::information(parent, "Вывод строки", getSubblock("Аргумент")->getResult().toString());
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -53,8 +55,8 @@ void SumBlock::execute()
 
     this->result = arg1 + arg2;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -65,8 +67,8 @@ void ConcatBlock::execute()
 
     this->result = arg1 + arg2;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -78,8 +80,8 @@ void SubstringBlock::execute()
 
     this->result = str.mid(startStr, endStr-startStr);
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -90,8 +92,8 @@ void DiffBlock::execute()
 
     this->result = arg1 - arg2;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -102,8 +104,8 @@ void MultBlock::execute()
 
     this->result = arg1 * arg2;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -114,8 +116,8 @@ void DivBlock::execute()
 
     this->result = arg1 / arg2;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -126,8 +128,8 @@ void ModBlock::execute()
 
     this->result = arg1 % arg2;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -138,8 +140,8 @@ void PowBlock::execute()
 
     this->result = pow(arg1, arg2);
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -152,8 +154,8 @@ void SqrtBlock::execute()
     std::cout << arg1 << std::endl;
     std::cout << this->result.toFloat() << std::endl;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -171,8 +173,8 @@ void LessBlock::execute()
         true_block->execute();
     } else if (!result.toBool() && false_block) {
         false_block->execute();
-    } else {
-        end->execute();
+    } else if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -190,10 +192,9 @@ void BiggerBlock::execute()
         true_block->execute();
     } else if (!result.toBool() && false_block) {
         false_block->execute();
-    } else {
-        end->execute();
+    } else if (end.getBlock()) {
+        end.getBlock()->execute();
     }
-
 }
 
 void EqualBlock::execute()
@@ -210,8 +211,8 @@ void EqualBlock::execute()
         true_block->execute();
     } else if (!result.toBool() && false_block) {
         false_block->execute();
-    } else {
-        end->execute();
+    } else if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -230,7 +231,7 @@ void EqualsBlock::execute()
     } else if (!result.toBool() && false_block) {
         false_block->execute();
     } else {
-        end->execute();
+        end.getBlock()->execute();
     }
 }
 
@@ -241,8 +242,8 @@ void FindBlock::execute()
 
     this->result = string.indexOf(substring);
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -254,8 +255,8 @@ void ReplaceBlock::execute()
 
     this->result = string.replace(pos, substring.length(), substring);
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
 
@@ -269,7 +270,7 @@ void ReverseBlock::execute()
 
     this->result = resString;
 
-    if (end) {
-        end->execute();
+    if (end.getBlock()) {
+        end.getBlock()->execute();
     }
 }
