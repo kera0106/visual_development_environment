@@ -9,7 +9,8 @@
 
 class BeginBlock: public Block {
 public:
-    BeginBlock() {
+    BeginBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::START;
         this->name = "Начало";
     }
     void execute();
@@ -17,7 +18,8 @@ public:
 
 class NumberInputBlock: public Block {
 public:
-    NumberInputBlock(QWidget *parent): parent(parent) {
+    NumberInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+        this->type = BlockType::INPUT;
         this->name = "Вввод числа";
         this->subblocks = {
             {"Результат", Subblock(this, SubblockType::OUTPUT)}
@@ -31,7 +33,8 @@ private:
 
 class StringInputBlock: public Block {
 public:
-    StringInputBlock(QWidget *parent): parent(parent) {
+    StringInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+        this->type = BlockType::INPUT_STR;
         this->name = "Вввод строки";
         this->subblocks = {
             {"Результат", Subblock(this, SubblockType::OUTPUT)}
@@ -45,7 +48,8 @@ private:
 
 class SumBlock: public Block {
 public:
-    SumBlock() {
+    SumBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::SUM;
         this->name = "Сумма";
         this->subblocks = {
             {"Слагаемое 1", Subblock(this, SubblockType::INPUT)},
@@ -60,7 +64,8 @@ public:
 
 class ConcatBlock: public Block {
 public:
-    ConcatBlock() {
+    ConcatBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::CONCAT;
         this->name = "Конкатенация";
         this->subblocks = {
             {"Строка 1", Subblock(this, SubblockType::INPUT)},
@@ -75,7 +80,8 @@ public:
 
 class SubstringBlock: public Block {
 public:
-    SubstringBlock() {
+    SubstringBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::SUBSTRING;
         this->name = "Подстрока";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT)},
@@ -91,7 +97,8 @@ public:
 
 class DiffBlock: public Block {
 public:
-    DiffBlock() {
+    DiffBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::DIFF;
         this->name = "Разность";
         this->subblocks = {
             {"Уменьшаемое", Subblock(this, SubblockType::INPUT)},
@@ -106,7 +113,8 @@ public:
 
 class MultBlock: public Block {
 public:
-    MultBlock() {
+    MultBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::MULT;
         this->name = "Умножение";
         this->subblocks = {
             {"Множитель 1", Subblock(this, SubblockType::INPUT)},
@@ -121,7 +129,8 @@ public:
 
 class ModBlock: public Block {
 public:
-    ModBlock() {
+    ModBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::MOD;
         this->name = "Модуль";
         this->subblocks = {
             {"Делимое", Subblock(this, SubblockType::INPUT)},
@@ -136,7 +145,8 @@ public:
 
 class PowBlock: public Block {
 public:
-    PowBlock() {
+    PowBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::POW;
         this->name = "Степень";
         this->subblocks = {
             {"Основание", Subblock(this, SubblockType::INPUT)},
@@ -151,7 +161,8 @@ public:
 
 class SqrtBlock: public Block {
 public:
-    SqrtBlock() {
+    SqrtBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::SQRT;
         this->name = "Корень";
         this->subblocks = {
             {"Аргумент", Subblock(this, SubblockType::INPUT)},
@@ -165,7 +176,8 @@ public:
 
 class DivBlock: public Block {
 public:
-    DivBlock() {
+    DivBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::DIVIDE;
         this->name = "Деление";
         this->subblocks = {
             {"Делимое", Subblock(this, SubblockType::INPUT)},
@@ -180,7 +192,8 @@ public:
 
 class NumberOutputBlock: public Block {
 public:
-    NumberOutputBlock(QWidget *parent): parent(parent) {
+    NumberOutputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+        this->type = BlockType::OUTPUT;
         this->name = "Вывод числа";
         this->subblocks = {
             {"Аргумент", Subblock(this, SubblockType::INPUT)},
@@ -196,7 +209,8 @@ private:
 
 class StringOutputBlock: public Block {
 public:
-    StringOutputBlock(QWidget *parent): parent(parent) {
+    StringOutputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+        this->type = BlockType::OUTPUT_STR;
         this->name = "Вывод строки";
         this->subblocks = {
             {"Аргумент", Subblock(this, SubblockType::INPUT)},
@@ -213,7 +227,8 @@ private:
 
 class LessBlock: public Block{
 public:
-    LessBlock(){
+    LessBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::LESS;
         this->name = "Меньше";
         this->subblocks = {
             {"Аргумент1", Subblock(this, SubblockType::INPUT)},
@@ -228,7 +243,8 @@ public:
 
 class EqualBlock: public Block{
 public:
-    EqualBlock(){
+    EqualBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::EQUAL;
         this->name = "Равно";
         this->subblocks = {
             {"Аргумент1", Subblock(this, SubblockType::INPUT)},
@@ -243,7 +259,8 @@ public:
 
 class BiggerBlock: public Block{
 public:
-    BiggerBlock(){
+    BiggerBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::BIGGER;
         this->name = "Больше";
         this->subblocks = {
             {"Аргумент1", Subblock(this, SubblockType::INPUT)},
@@ -258,7 +275,8 @@ public:
 
 class EqualsBlock: public Block{
 public:
-    EqualsBlock(){
+    EqualsBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::EQUALS;
         this->name = "Сравнение";
         this->subblocks = {
             {"Строка 1", Subblock(this, SubblockType::INPUT)},
@@ -273,7 +291,8 @@ public:
 
 class FindBlock: public Block{
 public:
-    FindBlock(){
+    FindBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::FIND;
         this->name = "Поиск";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT)},
@@ -286,7 +305,8 @@ public:
 
 class ReplaceBlock: public Block{
 public:
-    ReplaceBlock(){
+    ReplaceBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::REPLACE;
         this->name = "Сравнение";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT)},
@@ -300,7 +320,8 @@ public:
 
 class ReverseBlock: public Block{
 public:
-    ReverseBlock(){
+    ReverseBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::REVERSE;
         this->name = "Сравнение";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT)},

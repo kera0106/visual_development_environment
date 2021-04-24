@@ -5,6 +5,8 @@
 #include <QVariant>
 #include <QVector>
 
+#include "blocktype.h"
+
 class Block
 {
 
@@ -72,6 +74,7 @@ public:
 
     };
 
+    Block(QPointF pos): pos(pos) {}
 
     virtual void execute()=0;
 
@@ -94,10 +97,13 @@ public:
         return keys;
     }
 
-    QString getName() {return name; }
+    QString getName() { return name; }
+
+    BlockType getType() { return type; }
 
 protected:
 
+    BlockType type;
     QPointF pos;
 
     QVariant result;

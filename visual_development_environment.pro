@@ -24,7 +24,9 @@ SOURCES += \
 
 HEADERS += \
     block.h \
+    blockfabrica.h \
     blocks.h \
+    blocktype.h \
     programm.h \
     graphicscene.h \
     mainwindow.h

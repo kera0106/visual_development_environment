@@ -9,31 +9,8 @@
 #include <QDebug>
 #include <QVector4D>
 
+#include "blocktype.h"
 #include "blocks.h"
-
-enum ButtonType {
-    START,
-    INPUT,
-    OUTPUT,
-    SUM,
-    DIFF,
-    MULT,
-    DIVIDE,
-    MOD,
-    POW,
-    SQRT,
-    LESS,
-    BIGGER,
-    EQUAL,
-    INPUT_STR,
-    OUTPUT_STR,
-    CONCAT,
-    SUBSTRING,
-    EQUALS,
-    FIND,
-    REPLACE,
-    REVERSE
-};
 
 struct Area {
     Block *block = nullptr;
@@ -68,7 +45,7 @@ public:
     std::vector<Block*> blocks;
     BeginBlock *begin;
 
-    void setButtonType(const ButtonType &value);
+    void setButtonType(const BlockType &value);
 
 
     template<typename T>
@@ -78,7 +55,7 @@ public:
 private:
     QPointF previousPoint;
     Area* startArea = nullptr;
-    ButtonType buttonType;
+    BlockType buttonType;
 };
 
 #endif // PAINTSCENE_H
