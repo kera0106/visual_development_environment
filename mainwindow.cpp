@@ -34,7 +34,7 @@ void MainWindow::on_open_clicked()
 
 void MainWindow::on_run_clicked()
 {
-    scene->begin->execute();
+    scene->program.execute();
 }
 
 void MainWindow::on_stop_clicked()
@@ -43,15 +43,8 @@ void MainWindow::on_stop_clicked()
 }
 
 void MainWindow::on_save_clicked()
-{
-    Block *block = scene->getBeginBlock();
-    QVector<Block*> &blocks = scene->getBlocks();
-
-    QJsonArray jsonBlocks;
-
-    for (auto block: blocks) {
-        jsonBlocks.append(block->toJSON());
-    }
+{   
+    QJsonObject json = scene->program.toJSON();
 
     auto fileName = QFileDialog::getSaveFileName(this, tr("Save program"));
     QFile saveFile(fileName);
@@ -61,7 +54,7 @@ void MainWindow::on_save_clicked()
         return;
     }
 
-    saveFile.write(QJsonDocument(jsonBlocks).toJson());
+    saveFile.write(QJsonDocument(json).toJson());
 }
 
 void MainWindow::slotTimer()

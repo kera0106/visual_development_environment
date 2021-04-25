@@ -169,6 +169,10 @@ public:
         return obj;
     }
 
+    int getId() {
+        return id;
+    }
+
 protected:
 
     int id;

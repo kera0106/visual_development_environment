@@ -25,5 +25,4 @@ enum BlockType {
     REVERSE
 };
 
-
 #endif // BLOCKTYPE_H

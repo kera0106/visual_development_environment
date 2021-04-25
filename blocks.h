@@ -4,6 +4,7 @@
 #include "block.h"
 
 #include <QInputDialog>
+#include <QMap>
 #include <QMessageBox>
 #include <cmath>
 
@@ -328,4 +329,5 @@ public:
     }
     void execute();
 };
+
 #endif // BLOCKS_H

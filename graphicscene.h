@@ -12,6 +12,7 @@
 
 #include "blocktype.h"
 #include "blocks.h"
+#include "program.h"
 
 struct Area {
     Block *block = nullptr;
@@ -43,19 +44,17 @@ public:
     std::vector<Area> inputConnectionArea;
     std::vector<Area> outputConnectionArea;
 
-    QVector<Block*> blocks;
-    BeginBlock *begin;
+    Program program;
 
     void setButtonType(const BlockType &value);
 
-
-    template<typename T>
-    void drawBlock(T *block, QGraphicsSceneMouseEvent *);
+    void drawBeginBlock(Block*, QGraphicsSceneMouseEvent*);
+    void drawBlock(Block*, QGraphicsSceneMouseEvent*);
 
     void drawBlock(QGraphicsSceneMouseEvent *);
 
-    BeginBlock* getBeginBlock() { return this->begin; }
-    QVector<Block*> &getBlocks() { return this->blocks; }
+    Block* getBeginBlock() { return program.getBeginBlock(); }
+    QVector<Block*> &getBlocks() { return program.getBlocks(); }
 private:
     QPointF previousPoint;
     QVector<QPointF> linkPoints;
