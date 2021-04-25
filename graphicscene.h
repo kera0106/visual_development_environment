@@ -32,34 +32,39 @@ class GraphicScene : public QGraphicsScene
     Q_OBJECT
 
 public:
+
+    std::vector<Area> inputConnectionArea;
+    std::vector<Area> outputConnectionArea;
+
     explicit GraphicScene(QObject *parent = 0);
     Area* isInputConnectArea(QGraphicsSceneMouseEvent *event);
     Area* isOutputConnectArea(QGraphicsSceneMouseEvent *event);
     ~GraphicScene();
 
-private:
-    void mousePressEvent(QGraphicsSceneMouseEvent * event);
-
-public:
-    std::vector<Area> inputConnectionArea;
-    std::vector<Area> outputConnectionArea;
-
-    Program program;
-
     void setButtonType(const BlockType &value);
 
-    void drawBeginBlock(Block*, QGraphicsSceneMouseEvent*);
-    void drawBlock(Block*, QGraphicsSceneMouseEvent*);
+    void drawBeginBlock(Block*);
+    void drawBlock(Block*);
 
     void drawBlock(QGraphicsSceneMouseEvent *);
 
+    void setProgram(Program p);
+    Program& getProgram();
+
     Block* getBeginBlock() { return program.getBeginBlock(); }
     QVector<Block*> &getBlocks() { return program.getBlocks(); }
+
 private:
-    QPointF previousPoint;
-    QVector<QPointF> linkPoints;
+
+    Program program;
+
     Area* startArea = nullptr;
+    QPointF previousPoint;
+
+    QVector<QPointF> linkPoints;
     BlockType buttonType;
+
+    void mousePressEvent(QGraphicsSceneMouseEvent * event);
 };
 
 #endif // PAINTSCENE_H

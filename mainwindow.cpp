@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_run_clicked()
 {
-    scene->program.execute();
+    scene->getProgram().execute();
 }
 
 void MainWindow::on_stop_clicked()
@@ -54,7 +54,7 @@ void MainWindow::on_open_clicked()
 
 void MainWindow::on_save_clicked()
 {   
-    QJsonObject json = scene->program.toJSON();
+    QJsonObject json = scene->getProgram().toJSON();
 
     auto fileName = QFileDialog::getSaveFileName(this, tr("Save program"));
     QFile file(fileName);

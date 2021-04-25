@@ -224,7 +224,7 @@ private:
 };
 
 
-class LessBlock: public Block{
+class LessBlock: public Block {
 public:
     LessBlock(QPointF pos): Block(pos) {
         this->type = BlockType::LESS;
@@ -240,7 +240,7 @@ public:
     void execute();
 };
 
-class EqualBlock: public Block{
+class EqualBlock: public Block {
 public:
     EqualBlock(QPointF pos): Block(pos) {
         this->type = BlockType::EQUAL;
@@ -256,7 +256,7 @@ public:
     void execute();
 };
 
-class BiggerBlock: public Block{
+class BiggerBlock: public Block {
 public:
     BiggerBlock(QPointF pos): Block(pos) {
         this->type = BlockType::BIGGER;
@@ -272,7 +272,7 @@ public:
     void execute();
 };
 
-class EqualsBlock: public Block{
+class EqualsBlock: public Block {
 public:
     EqualsBlock(QPointF pos): Block(pos) {
         this->type = BlockType::EQUALS;
@@ -288,7 +288,7 @@ public:
     void execute();
 };
 
-class FindBlock: public Block{
+class FindBlock: public Block {
 public:
     FindBlock(QPointF pos): Block(pos) {
         this->type = BlockType::FIND;
@@ -302,7 +302,7 @@ public:
     void execute();
 };
 
-class ReplaceBlock: public Block{
+class ReplaceBlock: public Block {
 public:
     ReplaceBlock(QPointF pos): Block(pos) {
         this->type = BlockType::REPLACE;
@@ -317,7 +317,7 @@ public:
     void execute();
 };
 
-class ReverseBlock: public Block{
+class ReverseBlock: public Block {
 public:
     ReverseBlock(QPointF pos): Block(pos) {
         this->type = BlockType::REVERSE;

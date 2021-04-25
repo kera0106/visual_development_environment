@@ -182,6 +182,10 @@ public:
         return id;
     }
 
+    QPointF getPos() {
+        return this->pos;
+    }
+
 protected:
 
     int id;

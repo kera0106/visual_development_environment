@@ -72,28 +72,28 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void GraphicScene::drawBlock(Block *block, QGraphicsSceneMouseEvent *event) {
+void GraphicScene::drawBlock(Block *block) {
     INIT_PEN();
 
     inputConnectionArea.push_back(Area(
                                       block,
                                       nullptr,
-                                      QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+BLOCK_HEADER_HEIGHT)));
-    addRect(event->scenePos().x(), event->scenePos().y(), BLOCK_WIDTH, BLOCK_HEADER_HEIGHT, pen, brush);
-    path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  block->getName());
+                                      QVector4D(block->getPos().x(), block->getPos().y(), block->getPos().x()+BLOCK_WIDTH, block->getPos().y()+BLOCK_HEADER_HEIGHT)));
+    addRect(block->getPos().x(), block->getPos().y(), BLOCK_WIDTH, BLOCK_HEADER_HEIGHT, pen, brush);
+    path.addText(block->getPos().x() + 20, block->getPos().y() + 20, font,  block->getName());
 
     int heightOffset = BLOCK_HEADER_HEIGHT;
     auto keys = block->getSubblocksKeys();
 
     for (int i=0; i<keys.size(); i++) {
 
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + heightOffset + 10, font,  keys[i]);
-        addRect(event->scenePos().x(), event->scenePos().y()+heightOffset, 100, SUBBLOCK_HEIGHT, pen, brush);
+        path.addText(block->getPos().x() + 5, block->getPos().y() + heightOffset + 10, font,  keys[i]);
+        addRect(block->getPos().x(), block->getPos().y()+heightOffset, 100, SUBBLOCK_HEIGHT, pen, brush);
 
         Area connectionArea(
                     block,
                     block->getSubblock(keys[i]),
-                    QVector4D(event->scenePos().x(), event->scenePos().y()+heightOffset, event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+heightOffset+SUBBLOCK_HEIGHT));
+                    QVector4D(block->getPos().x(), block->getPos().y()+heightOffset, block->getPos().x()+BLOCK_WIDTH, block->getPos().y()+heightOffset+SUBBLOCK_HEIGHT));
 
         switch (block->getSubblock(keys[i])->getType()) {
         case Block::SubblockType::INPUT:
@@ -113,33 +113,44 @@ void GraphicScene::drawBlock(Block *block, QGraphicsSceneMouseEvent *event) {
 
 }
 
-void GraphicScene::drawBeginBlock(Block *block, QGraphicsSceneMouseEvent *event) {
+void GraphicScene::drawBeginBlock(Block *block) {
     INIT_PEN();
 
-    addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
+    addRect(block->getPos().x(), block->getPos().y(), 100, 100, pen, brush);
     outputConnectionArea.push_back(Area(
                                        block,
                                        nullptr,
-                                       QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+100)));
-    path.addText(event->scenePos().x() + 30, event->scenePos().y() + 50, font,  block->getName());
+                                       QVector4D(block->getPos().x(), block->getPos().y(), block->getPos().x()+100, block->getPos().y()+100)));
+    path.addText(block->getPos().x() + 30, block->getPos().y() + 50, font,  block->getName());
     this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
 }
 
 void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
 
-    auto block = BlockFabrica::fromBlockType((QWidget*)this->parent(), buttonType, event->pos());
+    auto block = BlockFabrica::fromBlockType((QWidget*)this->parent(), buttonType, event->scenePos());
     program.addBlock(block);
 
     switch (block->getType()) {
     case START:
-        drawBeginBlock(block, event);
+        drawBeginBlock(block);
         program.setBegin(block);
         break;
     default:
-        drawBlock(block, event);
+        drawBlock(block);
         break;
     }
     previousPoint = event->scenePos();
+}
+
+void GraphicScene::setProgram(Program p)
+{
+    program = p;
+
+}
+
+Program& GraphicScene::getProgram()
+{
+    return program;
 }
 
 void GraphicScene::setButtonType(const BlockType &value)
