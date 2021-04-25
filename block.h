@@ -11,6 +11,8 @@
 
 #include "blocktype.h"
 
+class BlockFabrica;
+
 class Block
 {
 
@@ -88,6 +90,7 @@ public:
                     obj["block"] = subblockLink->block->id;
                     obj["subblock"] = subblockLink->index;
                     break;
+
                 }
                 return obj;
             }
@@ -106,6 +109,7 @@ public:
 
         QJsonObject toJSON() {
             QJsonObject obj;
+
             obj["index"] = index;
             obj["link"] = link.toJSON();
 
@@ -123,6 +127,7 @@ public:
 
     Block(QPointF pos): id(current_id++), pos(pos) {}
 
+
     virtual void execute()=0;
 
     void setEnd(Block *block, QVector<QPointF> points) { this->end = Subblock::Link(block, points); }
@@ -137,6 +142,10 @@ public:
             }
         }
         return nullptr;
+    }
+
+    Subblock* getSubblock(int index) {
+        return &subblocks[index].second;
     }
 
     QVector<QString> getSubblocksKeys() {
@@ -188,6 +197,7 @@ protected:
 
 private:
 
+    friend BlockFabrica;
     static int current_id;
 
 };

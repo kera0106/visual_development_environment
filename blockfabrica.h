@@ -57,6 +57,16 @@ public:
             return new ReverseBlock(pos);
         }
     }
+    static Block* fromJSON(QWidget *parent, QJsonObject jsonBlock) {
+
+        BlockType type = (BlockType)jsonBlock["type"].toInt();
+        QPointF pos(jsonBlock["pos_x"].toDouble(), jsonBlock["pos_y"].toDouble());
+
+        Block *block = BlockFabrica::fromBlockType(parent, type, pos);
+        block->id = jsonBlock["id"].toInt();
+
+        return block;
+    }
 
 };
 

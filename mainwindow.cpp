@@ -26,12 +26,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_open_clicked()
-{
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка открыть");
-}
-
 void MainWindow::on_run_clicked()
 {
     scene->program.execute();
@@ -42,19 +36,35 @@ void MainWindow::on_stop_clicked()
     QMessageBox::about(this, "Нажатие кнопки", "Кнопка стоп");
 }
 
+void MainWindow::on_open_clicked()
+{
+    auto fileName = QFileDialog::getOpenFileName(this, tr("Open program"));
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open file.");
+        return;
+    }
+
+    QJsonDocument document = QJsonDocument::fromJson(file.readAll());
+
+    Program p(this, document.object());
+//    scene->setProgram(p);
+}
+
 void MainWindow::on_save_clicked()
 {   
     QJsonObject json = scene->program.toJSON();
 
     auto fileName = QFileDialog::getSaveFileName(this, tr("Save program"));
-    QFile saveFile(fileName);
+    QFile file(fileName);
 
-    if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file.");
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open file.");
         return;
     }
 
-    saveFile.write(QJsonDocument(json).toJson());
+    file.write(QJsonDocument(json).toJson());
 }
 
 void MainWindow::slotTimer()
