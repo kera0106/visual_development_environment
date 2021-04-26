@@ -21,7 +21,7 @@ class NumberInputBlock: public Block {
 public:
     NumberInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
         this->type = BlockType::INPUT;
-        this->name = "Вввод числа";
+        this->name = "Ввод числа";
         this->subblocks = {
             {"Результат", Subblock(this, SubblockType::OUTPUT, 0)}
         };
@@ -36,7 +36,7 @@ class StringInputBlock: public Block {
 public:
     StringInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
         this->type = BlockType::INPUT_STR;
-        this->name = "Вввод строки";
+        this->name = "Ввод строки";
         this->subblocks = {
             {"Результат", Subblock(this, SubblockType::OUTPUT, 0)}
         };
@@ -306,7 +306,7 @@ class ReplaceBlock: public Block {
 public:
     ReplaceBlock(QPointF pos): Block(pos) {
         this->type = BlockType::REPLACE;
-        this->name = "Сравнение";
+        this->name = "Заменить";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT, 0)},
             {"Подстрока", Subblock(this, SubblockType::INPUT, 1)},
@@ -321,7 +321,7 @@ class ReverseBlock: public Block {
 public:
     ReverseBlock(QPointF pos): Block(pos) {
         this->type = BlockType::REVERSE;
-        this->name = "Сравнение";
+        this->name = "Перевернуть";
         this->subblocks = {
             {"Строка", Subblock(this, SubblockType::INPUT, 0)},
             {"Результат", Subblock(this, SubblockType::OUTPUT, 1)}
