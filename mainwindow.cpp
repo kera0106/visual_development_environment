@@ -49,7 +49,7 @@ void MainWindow::on_open_clicked()
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
 
     Program p(this, document.object());
-//    scene->setProgram(p);
+    scene->setProgram(p);
 }
 
 void MainWindow::on_save_clicked()

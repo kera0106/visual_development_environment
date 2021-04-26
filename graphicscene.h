@@ -44,9 +44,11 @@ public:
     void setButtonType(const BlockType &value);
 
     void drawBeginBlock(Block*);
+    void drawDefaultBlock(Block*);
     void drawBlock(Block*);
+    void drawLink(Block::Subblock::Link&);
 
-    void drawBlock(QGraphicsSceneMouseEvent *);
+    void addBlock(QGraphicsSceneMouseEvent *);
 
     void setProgram(Program p);
     Program& getProgram();

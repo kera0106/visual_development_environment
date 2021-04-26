@@ -26,15 +26,18 @@ public:
             auto blockObj = jsonBlocks[i].toObject();
 
             auto blockEnd = blockObj["end"].toObject();
-            int endBlockId = blockEnd["block"].toInt();
+            auto endBlockId = blockEnd["block"].toInt();
+            auto endLinkType = (Block::Subblock::LinkType)blockEnd["link_type"].toInt();
             auto endBlock = getBlockWithId(endBlockId);
 
-            blocks[i]->setEnd(endBlock, pointsFromJSON(blockEnd["points"].toArray()));
+            if (endLinkType == Block::Subblock::LinkType::BLOCK) {
+                blocks[i]->setEnd(endBlock, pointsFromJSON(blockEnd["points"].toArray()));
+            }
 
             auto subblocks = blockObj["subblocks"].toArray();
             for (int j=0; j<subblocks.size(); j++) {
-                auto subblockObj = subblocks[i].toObject();
-                int index = subblockObj["index"].toInt();
+                auto subblockObj = subblocks[j].toObject();
+                auto index = subblockObj["index"].toInt();
 
                 auto linkObj = subblockObj["link"].toObject();
                 auto linkType = (Block::Subblock::LinkType)linkObj["link_type"].toInt();

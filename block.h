@@ -105,7 +105,7 @@ public:
         QVariant getResult() { return link.getResult(); }
         SubblockType getType() { return type; }
 
-        Link getLink() { return link; }
+        Link &getLink() { return link; }
 
         QJsonObject toJSON() {
             QJsonObject obj;
@@ -132,6 +132,7 @@ public:
 
     void setEnd(Block *block, QVector<QPointF> points) { this->end = Subblock::Link(block, points); }
     Block *getNext() { return this->end.getBlock(); }
+    Subblock::Link &getEndLink() { return this->end; }
 
     QVariant getResult() { return this->result; }
 
@@ -142,6 +143,10 @@ public:
             }
         }
         return nullptr;
+    }
+
+    QVector<QPair<QString, Subblock>> &getSubblocks() {
+        return subblocks;
     }
 
     Subblock* getSubblock(int index) {

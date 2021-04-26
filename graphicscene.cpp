@@ -13,6 +13,11 @@
                        font.setBold(false); \
                        font.setFamily("Arial")
 
+#define INIT_LINE_PEN()     QPen pen(Qt::black); \
+                            QBrush brush; \
+                            brush.setColor(Qt::black); \
+                            brush.setStyle(Qt::SolidPattern)
+
 GraphicScene::GraphicScene(QObject *parent) : QGraphicsScene(parent)
 {
 
@@ -25,15 +30,13 @@ GraphicScene::~GraphicScene()
 
 void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    QPen pen(Qt::black);
-    QBrush brush;
-    brush.setColor(Qt::black);
-    brush.setStyle(Qt::SolidPattern);
+
+    INIT_LINE_PEN();
 
     if (!startArea){
             auto area = isOutputConnectArea(event);
             if (!area){
-                drawBlock(event);
+                addBlock(event);
                 return;
             }
 
@@ -72,7 +75,7 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void GraphicScene::drawBlock(Block *block) {
+void GraphicScene::drawDefaultBlock(Block *block) {
     INIT_PEN();
 
     inputConnectionArea.push_back(Area(
@@ -113,6 +116,44 @@ void GraphicScene::drawBlock(Block *block) {
 
 }
 
+void GraphicScene::drawBlock(Block *block)
+{
+
+    switch (block->getType()) {
+    case START:
+        drawBeginBlock(block);
+        program.setBegin(block);
+        break;
+    default:
+        drawDefaultBlock(block);
+        break;
+    }
+
+}
+
+void GraphicScene::drawLink(Block::Subblock::Link &link)
+{
+    INIT_LINE_PEN();
+
+    if (link.type != Block::Subblock::LinkType::NO_LINK) {
+        QPointF firstPoint = link.points[0];
+        addEllipse(firstPoint.x()-5, firstPoint.y()-5, 10, 10, pen, brush);
+
+        QPointF lastPoint = link.points[link.points.size()-1];
+        QPolygonF polygon;
+        polygon << QPointF(lastPoint.x(), lastPoint.y()+7) << QPointF(lastPoint.x()-7, lastPoint.y()) << QPointF(lastPoint.x(), lastPoint.y()-7) << QPointF(lastPoint.x()+7, lastPoint.y());
+        addPolygon(polygon, pen, brush);
+
+        for (int i=0; i<link.points.size()-1; i++) {
+            addLine(link.points[i].x(),
+                    link.points[i].y(),
+                    link.points[i+1].x(),
+                    link.points[i+1].y(),
+                    QPen(Qt::black,1,Qt::SolidLine,Qt::RoundCap));
+        }
+    }
+}
+
 void GraphicScene::drawBeginBlock(Block *block) {
     INIT_PEN();
 
@@ -125,20 +166,11 @@ void GraphicScene::drawBeginBlock(Block *block) {
     this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
 }
 
-void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
+void GraphicScene::addBlock(QGraphicsSceneMouseEvent *event) {
 
     auto block = BlockFabrica::fromBlockType((QWidget*)this->parent(), buttonType, event->scenePos());
     program.addBlock(block);
-
-    switch (block->getType()) {
-    case START:
-        drawBeginBlock(block);
-        program.setBegin(block);
-        break;
-    default:
-        drawBlock(block);
-        break;
-    }
+    drawBlock(block);
     previousPoint = event->scenePos();
 }
 
@@ -146,6 +178,14 @@ void GraphicScene::setProgram(Program p)
 {
     program = p;
 
+    for (auto b: program.getBlocks()) {
+        drawBlock(b);
+        drawLink(b->getEndLink());
+
+        for (auto &sb: b->getSubblocks()) {
+            drawLink(sb.second.getLink());
+        }
+    }
 }
 
 Program& GraphicScene::getProgram()
