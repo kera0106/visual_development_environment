@@ -176,6 +176,7 @@ void GraphicScene::addBlock(QGraphicsSceneMouseEvent *event) {
 
 void GraphicScene::setProgram(Program p)
 {
+    clear();
     program = p;
 
     for (auto b: program.getBlocks()) {

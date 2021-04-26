@@ -38,7 +38,7 @@ void MainWindow::on_stop_clicked()
 
 void MainWindow::on_open_clicked()
 {
-    auto fileName = QFileDialog::getOpenFileName(this, tr("Open program"));
+    auto fileName = QFileDialog::getOpenFileName(this, tr("Open program"), QString(), "Program (*.vbpl)");
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -56,15 +56,21 @@ void MainWindow::on_save_clicked()
 {   
     QJsonObject json = scene->getProgram().toJSON();
 
-    auto fileName = QFileDialog::getSaveFileName(this, tr("Save program"));
-    QFile file(fileName);
+    QFileDialog dialog(this, "Save program", QString(),
+                       "Program (*.vbpl)");
+    dialog.setDefaultSuffix(".vbpl");
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    if (dialog.exec()) {
+        const auto fileName = dialog.selectedFiles().front();
 
-    if (!file.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open file.");
-        return;
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            qWarning("Couldn't open file.");
+            return;
+        }
+
+        file.write(QJsonDocument(json).toJson());
     }
-
-    file.write(QJsonDocument(json).toJson());
 }
 
 void MainWindow::slotTimer()
