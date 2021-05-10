@@ -238,6 +238,7 @@ public:
         };
     }
     void execute();
+    Block* getNext();
 };
 
 class EqualBlock: public Block {
@@ -254,6 +255,7 @@ public:
         };
     }
     void execute();
+    Block* getNext();
 };
 
 class BiggerBlock: public Block {
@@ -270,6 +272,7 @@ public:
         };
     }
     void execute();
+    Block* getNext();
 };
 
 class EqualsBlock: public Block {
@@ -286,6 +289,7 @@ public:
         };
     }
     void execute();
+    Block* getNext();
 };
 
 class FindBlock: public Block {

@@ -65,7 +65,17 @@ public:
         }
     }
 
-    void execute() { beginBlock->execute(); }
+    void execute() {
+
+        Block *next = beginBlock;
+        while (next) {
+            next->execute();
+            next = next->getNext();
+            qDebug() << next;
+        }
+
+    }
+
     void setBegin(Block *beginBlock) { this->beginBlock = beginBlock; }
     void addBlock(Block *block) { this->blocks.push_back(block); }
 

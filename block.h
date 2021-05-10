@@ -129,9 +129,9 @@ public:
 
 
     virtual void execute()=0;
+    virtual Block *getNext() { return this->end.getBlock(); }
 
     void setEnd(Block *block, QVector<QPointF> points) { this->end = Subblock::Link(block, points); }
-    Block *getNext() { return this->end.getBlock(); }
     Subblock::Link &getEndLink() { return this->end; }
 
     QVariant getResult() { return this->result; }
