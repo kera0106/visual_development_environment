@@ -71,7 +71,6 @@ public:
         while (next) {
             next->execute();
             next = next->getNext();
-            qDebug() << next;
         }
 
     }
