@@ -8,24 +8,11 @@
 #include <QTimer>
 #include <QDebug>
 #include <QVector4D>
+#include <QVector>
 
+#include "blocktype.h"
 #include "blocks.h"
-
-enum ButtonType {
-    START,
-    INPUT,
-    OUTPUT,
-    SUM,
-    DIFF,
-    MULT,
-    DIVIDE,
-    MOD,
-    POW,
-    SQRT,
-    LESS,
-    BIGGER,
-    EQUAL
-};
+#include "program.h"
 
 struct Area {
     Block *block = nullptr;
@@ -45,32 +32,41 @@ class GraphicScene : public QGraphicsScene
     Q_OBJECT
 
 public:
+
+    std::vector<Area> inputConnectionArea;
+    std::vector<Area> outputConnectionArea;
+
     explicit GraphicScene(QObject *parent = 0);
     Area* isInputConnectArea(QGraphicsSceneMouseEvent *event);
     Area* isOutputConnectArea(QGraphicsSceneMouseEvent *event);
     ~GraphicScene();
 
+    void setButtonType(const BlockType &value);
+
+    void drawBeginBlock(Block*);
+    void drawDefaultBlock(Block*);
+    void drawBlock(Block*);
+    void drawLink(Block::Subblock::Link&);
+
+    void addBlock(QGraphicsSceneMouseEvent *);
+
+    void setProgram(Program p);
+    Program& getProgram();
+
+    Block* getBeginBlock() { return program.getBeginBlock(); }
+    QVector<Block*> &getBlocks() { return program.getBlocks(); }
+
 private:
-    void mousePressEvent(QGraphicsSceneMouseEvent * event);
 
-public:
-    std::vector<Area> inputConnectionArea;
-    std::vector<Area> outputConnectionArea;
+    Program program;
 
-    std::vector<Block*> blocks;
-    BeginBlock *begin;
-
-    void setButtonType(const ButtonType &value);
-
-
-    template<typename T>
-    void drawBlock(T *block, QGraphicsSceneMouseEvent *);
-
-    void drawBlock(QGraphicsSceneMouseEvent *);
-private:
-    QPointF previousPoint;
     Area* startArea = nullptr;
-    ButtonType buttonType;
+    QPointF previousPoint;
+
+    QVector<QPointF> linkPoints;
+    BlockType buttonType;
+
+    void mousePressEvent(QGraphicsSceneMouseEvent * event);
 };
 
 #endif // PAINTSCENE_H

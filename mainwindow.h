@@ -54,6 +54,22 @@ private slots:
 
     void on_equal_clicked();
 
+    void on_inputString_clicked();
+
+    void on_outputString_clicked();
+
+    void on_concat_clicked();
+
+    void on_substring_clicked();
+
+    void on_equals_clicked();
+
+    void on_find_clicked();
+
+    void on_replace_clicked();
+
+    void on_reverse_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

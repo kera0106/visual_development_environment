@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,15 +26,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_open_clicked()
-{
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка открыть");
-}
-
 void MainWindow::on_run_clicked()
 {
-    scene->begin->execute();
+    scene->getProgram().execute();
 }
 
 void MainWindow::on_stop_clicked()
@@ -39,9 +36,41 @@ void MainWindow::on_stop_clicked()
     QMessageBox::about(this, "Нажатие кнопки", "Кнопка стоп");
 }
 
-void MainWindow::on_save_clicked()
+void MainWindow::on_open_clicked()
 {
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка сохранить");
+    auto fileName = QFileDialog::getOpenFileName(this, tr("Open program"), QString(), "Program (*.vbpl)");
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open file.");
+        return;
+    }
+
+    QJsonDocument document = QJsonDocument::fromJson(file.readAll());
+
+    Program p(this, document.object());
+    scene->setProgram(p);
+}
+
+void MainWindow::on_save_clicked()
+{   
+    QJsonObject json = scene->getProgram().toJSON();
+
+    QFileDialog dialog(this, "Save program", QString(),
+                       "Program (*.vbpl)");
+    dialog.setDefaultSuffix(".vbpl");
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    if (dialog.exec()) {
+        const auto fileName = dialog.selectedFiles().front();
+
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            qWarning("Couldn't open file.");
+            return;
+        }
+
+        file.write(QJsonDocument(json).toJson());
+    }
 }
 
 void MainWindow::slotTimer()
@@ -119,4 +148,44 @@ void MainWindow::on_bigger_clicked()
 void MainWindow::on_equal_clicked()
 {
     scene->setButtonType(EQUAL);
+}
+
+void MainWindow::on_inputString_clicked()
+{
+    scene->setButtonType(INPUT_STR);
+}
+
+void MainWindow::on_outputString_clicked()
+{
+    scene->setButtonType(OUTPUT_STR);
+}
+
+void MainWindow::on_concat_clicked()
+{
+    scene->setButtonType(CONCAT);
+}
+
+void MainWindow::on_substring_clicked()
+{
+    scene->setButtonType(SUBSTRING);
+}
+
+void MainWindow::on_equals_clicked()
+{
+    scene->setButtonType(EQUALS);
+}
+
+void MainWindow::on_find_clicked()
+{
+    scene->setButtonType(FIND);
+}
+
+void MainWindow::on_replace_clicked()
+{
+    scene->setButtonType(REPLACE);
+}
+
+void MainWindow::on_reverse_clicked()
+{
+    scene->setButtonType(REVERSE);
 }

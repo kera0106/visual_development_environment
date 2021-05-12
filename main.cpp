@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
 #include "blocks.h"
-#include "programm.h"
+#include "program.h"
 
 #include <QApplication>
 

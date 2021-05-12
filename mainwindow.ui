@@ -141,7 +141,7 @@
        <widget class="QGraphicsView" name="canvas"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0">
+       <layout class="QVBoxLayout" name="blockListView" stretch="1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
         <item>
          <widget class="QRadioButton" name="start">
           <property name="text">
@@ -170,9 +170,23 @@
          </widget>
         </item>
         <item>
+         <widget class="QRadioButton" name="inputString">
+          <property name="text">
+           <string>Ввод строки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QRadioButton" name="output">
           <property name="text">
            <string>Вывод числа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="outputString">
+          <property name="text">
+           <string>Вывод строки</string>
           </property>
          </widget>
         </item>
@@ -239,6 +253,61 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="label_4">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Строковые операции:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="concat">
+          <property name="text">
+           <string>Конкатенация</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="substring">
+          <property name="text">
+           <string>Извлечение подстроки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="equals">
+          <property name="text">
+           <string>Сравнение строк</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="find">
+          <property name="text">
+           <string>Поиск подстроки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="replace">
+          <property name="text">
+           <string>Замена подстроки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="reverse">
+          <property name="text">
+           <string>Разворот строки</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label_3">
           <property name="maximumSize">
            <size>
@@ -247,7 +316,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Логические:</string>
+           <string>Логические операции:</string>
           </property>
          </widget>
         </item>

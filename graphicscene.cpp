@@ -1,3 +1,4 @@
+#include "blockfabrica.h"
 #include "graphicscene.h"
 
 #define BLOCK_HEADER_HEIGHT 30
@@ -12,6 +13,11 @@
                        font.setBold(false); \
                        font.setFamily("Arial")
 
+#define INIT_LINE_PEN()     QPen pen(Qt::black); \
+                            QBrush brush; \
+                            brush.setColor(Qt::black); \
+                            brush.setStyle(Qt::SolidPattern)
+
 GraphicScene::GraphicScene(QObject *parent) : QGraphicsScene(parent)
 {
 
@@ -24,16 +30,18 @@ GraphicScene::~GraphicScene()
 
 void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    QPen pen(Qt::black);
-    QBrush brush;
-    brush.setColor(Qt::black);
-    brush.setStyle(Qt::SolidPattern);
+
+    INIT_LINE_PEN();
+
     if (!startArea){
             auto area = isOutputConnectArea(event);
             if (!area){
-                drawBlock(event);
+                addBlock(event);
                 return;
             }
+
+            linkPoints = {event->scenePos()};
+
             previousPoint = event->scenePos();
             addEllipse(event->scenePos().x()-5, event->scenePos().y()-5, 10, 10, pen, brush);
             startArea = area;
@@ -45,16 +53,17 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                         event->scenePos().x(),
                         event->scenePos().y(),
                         QPen(Qt::black,1,Qt::SolidLine,Qt::RoundCap));
+            linkPoints.push_back(event->scenePos());
             previousPoint = event->scenePos();
             auto area = isInputConnectArea(event);
             if (area){
 
                 if (startArea->subblock && startArea->subblock->getType() == Block::SubblockType::GOTO) {
-                    startArea->subblock->LinkTo(area->block);
-                } else if (startArea->subblock && area->subblock){
-                    area->subblock->LinkTo(startArea->subblock);
+                    startArea->subblock->LinkTo(area->block, linkPoints);
+                } else if (startArea->subblock && area->subblock) {
+                    area->subblock->LinkTo(startArea->subblock, linkPoints);
                 } else {
-                    startArea->block->setEnd(area->block);
+                    startArea->block->setEnd(area->block, linkPoints);
                 }
 
                 startArea = nullptr;
@@ -66,29 +75,28 @@ void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-template<typename T>
-void GraphicScene::drawBlock(T *block, QGraphicsSceneMouseEvent *event) {
+void GraphicScene::drawDefaultBlock(Block *block) {
     INIT_PEN();
 
     inputConnectionArea.push_back(Area(
                                       block,
                                       nullptr,
-                                      QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+BLOCK_HEADER_HEIGHT)));
-    addRect(event->scenePos().x(), event->scenePos().y(), BLOCK_WIDTH, BLOCK_HEADER_HEIGHT, pen, brush);
-    path.addText(event->scenePos().x() + 20, event->scenePos().y() + 20, font,  block->getName());
+                                      QVector4D(block->getPos().x(), block->getPos().y(), block->getPos().x()+BLOCK_WIDTH, block->getPos().y()+BLOCK_HEADER_HEIGHT)));
+    addRect(block->getPos().x(), block->getPos().y(), BLOCK_WIDTH, BLOCK_HEADER_HEIGHT, pen, brush);
+    path.addText(block->getPos().x() + 20, block->getPos().y() + 20, font,  block->getName());
 
     int heightOffset = BLOCK_HEADER_HEIGHT;
     auto keys = block->getSubblocksKeys();
 
     for (int i=0; i<keys.size(); i++) {
 
-        path.addText(event->scenePos().x() + 5, event->scenePos().y() + heightOffset + 10, font,  keys[i]);
-        addRect(event->scenePos().x(), event->scenePos().y()+heightOffset, 100, SUBBLOCK_HEIGHT, pen, brush);
+        path.addText(block->getPos().x() + 5, block->getPos().y() + heightOffset + 10, font,  keys[i]);
+        addRect(block->getPos().x(), block->getPos().y()+heightOffset, 100, SUBBLOCK_HEIGHT, pen, brush);
 
         Area connectionArea(
                     block,
                     block->getSubblock(keys[i]),
-                    QVector4D(event->scenePos().x(), event->scenePos().y()+heightOffset, event->scenePos().x()+BLOCK_WIDTH, event->scenePos().y()+heightOffset+SUBBLOCK_HEIGHT));
+                    QVector4D(block->getPos().x(), block->getPos().y()+heightOffset, block->getPos().x()+BLOCK_WIDTH, block->getPos().y()+heightOffset+SUBBLOCK_HEIGHT));
 
         switch (block->getSubblock(keys[i])->getType()) {
         case Block::SubblockType::INPUT:
@@ -108,108 +116,85 @@ void GraphicScene::drawBlock(T *block, QGraphicsSceneMouseEvent *event) {
 
 }
 
-template<>
-void GraphicScene::drawBlock(BeginBlock *block, QGraphicsSceneMouseEvent *event) {
+void GraphicScene::drawBlock(Block *block)
+{
+
+    switch (block->getType()) {
+    case START:
+        drawBeginBlock(block);
+        program.setBegin(block);
+        break;
+    default:
+        drawDefaultBlock(block);
+        break;
+    }
+
+}
+
+void GraphicScene::drawLink(Block::Subblock::Link &link)
+{
+    INIT_LINE_PEN();
+
+    if (link.type != Block::Subblock::LinkType::NO_LINK) {
+        QPointF firstPoint = link.points[0];
+        addEllipse(firstPoint.x()-5, firstPoint.y()-5, 10, 10, pen, brush);
+
+        QPointF lastPoint = link.points[link.points.size()-1];
+        QPolygonF polygon;
+        polygon << QPointF(lastPoint.x(), lastPoint.y()+7) << QPointF(lastPoint.x()-7, lastPoint.y()) << QPointF(lastPoint.x(), lastPoint.y()-7) << QPointF(lastPoint.x()+7, lastPoint.y());
+        addPolygon(polygon, pen, brush);
+
+        for (int i=0; i<link.points.size()-1; i++) {
+            addLine(link.points[i].x(),
+                    link.points[i].y(),
+                    link.points[i+1].x(),
+                    link.points[i+1].y(),
+                    QPen(Qt::black,1,Qt::SolidLine,Qt::RoundCap));
+        }
+    }
+}
+
+void GraphicScene::drawBeginBlock(Block *block) {
     INIT_PEN();
 
-    addRect(event->scenePos().x(), event->scenePos().y(), 100, 100, pen, brush);
+    addRect(block->getPos().x(), block->getPos().y(), 100, 100, pen, brush);
     outputConnectionArea.push_back(Area(
                                        block,
                                        nullptr,
-                                       QVector4D(event->scenePos().x(), event->scenePos().y(), event->scenePos().x()+100, event->scenePos().y()+100)));
-    path.addText(event->scenePos().x() + 30, event->scenePos().y() + 50, font,  block->getName());
+                                       QVector4D(block->getPos().x(), block->getPos().y(), block->getPos().x()+100, block->getPos().y()+100)));
+    path.addText(block->getPos().x() + 30, block->getPos().y() + 50, font,  block->getName());
     this->addPath(path, QPen(QBrush(Qt::black), 0), QBrush(Qt::black));
-
 }
 
-void GraphicScene::drawBlock(QGraphicsSceneMouseEvent *event){
+void GraphicScene::addBlock(QGraphicsSceneMouseEvent *event) {
 
-    if(buttonType == START){
-        auto block = new BeginBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-        begin = block;
-    }else if(buttonType == INPUT){
-
-        QGraphicsView * const localFirst = this->views().first();
-        auto block = new NumberInputBlock((QWidget*)this->parent());
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    }else if(buttonType == OUTPUT){
-
-        QGraphicsView * const localFirst = this->views().first();
-        auto block = new NumberOutputBlock((QWidget*)this->parent());
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == SUM){
-
-        auto block = new SumBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == DIFF){
-
-        auto block = new DiffBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == MULT){
-
-        auto block = new MultBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == DIVIDE){
-
-        auto block = new DivBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == MOD){
-
-        auto block = new ModBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == POW){
-
-        auto block = new PowBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == SQRT){
-
-        auto block = new SqrtBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == LESS){
-
-        auto block = new LessBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == BIGGER){
-
-        auto block = new BiggerBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    } else if(buttonType == EQUAL){
-
-        auto block = new EqualBlock();
-        blocks.push_back(block);
-        drawBlock(block, event);
-
-    }
-
+    auto block = BlockFabrica::fromBlockType((QWidget*)this->parent(), buttonType, event->scenePos());
+    program.addBlock(block);
+    drawBlock(block);
     previousPoint = event->scenePos();
 }
 
-void GraphicScene::setButtonType(const ButtonType &value)
+void GraphicScene::setProgram(Program p)
+{
+    clear();
+    program = p;
+
+    for (auto b: program.getBlocks()) {
+        drawBlock(b);
+        drawLink(b->getEndLink());
+
+        for (auto &sb: b->getSubblocks()) {
+            drawLink(sb.second.getLink());
+        }
+    }
+}
+
+Program& GraphicScene::getProgram()
+{
+    return program;
+}
+
+void GraphicScene::setButtonType(const BlockType &value)
 {
     buttonType = value;
 }

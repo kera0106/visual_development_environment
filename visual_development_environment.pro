@@ -20,14 +20,16 @@ SOURCES += \
     graphicscene.cpp \
     main.cpp \
     mainwindow.cpp \
-    programm.cpp
+    program.cpp
 
 HEADERS += \
     block.h \
+    blockfabrica.h \
     blocks.h \
-    programm.h \
+    blocktype.h \
     graphicscene.h \
-    mainwindow.h
+    mainwindow.h \
+    program.h
 
 FORMS += \
     mainwindow.ui
