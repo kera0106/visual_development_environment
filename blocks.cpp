@@ -97,9 +97,6 @@ void SqrtBlock::execute()
     int arg1 = getSubblock("Аргумент")->getResult().toInt();
 
     this->result = sqrt(arg1);
-
-    std::cout << arg1 << std::endl;
-    std::cout << this->result.toFloat() << std::endl;
 }
 
 void LessBlock::execute()
