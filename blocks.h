@@ -334,4 +334,51 @@ public:
     void execute();
 };
 
+class NegationBlock: public Block {
+public:
+    NegationBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::NEGATION;
+        this->name = "Отрицание";
+        this->subblocks = {
+            {"Аргумент", Subblock(this, SubblockType::INPUT, 0)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT, 1)}
+        };
+
+    }
+
+    void execute();
+};
+
+class ConjunctionBlock: public Block {
+public:
+    ConjunctionBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::CONJUNCTION;
+        this->name = "Конъюнкция";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT, 0)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT, 1)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT, 2)}
+        };
+
+    }
+
+    void execute();
+};
+
+class DisjunctionBlock: public Block {
+public:
+    DisjunctionBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::DISJUNCTION;
+        this->name = "Дизъюнкция";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT, 0)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT, 1)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT, 2)}
+        };
+
+    }
+
+    void execute();
+};
+
 #endif // BLOCKS_H

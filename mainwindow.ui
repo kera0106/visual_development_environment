@@ -168,16 +168,30 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>0</y>
+           <y>-235</y>
            <width>528</width>
-           <height>674</height>
+           <height>778</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="start">
+          <item row="22" column="0">
+           <widget class="QRadioButton" name="less">
             <property name="text">
-             <string>Начальный блок</string>
+             <string>Меньше</string>
+            </property>
+           </widget>
+          </item>
+          <item row="23" column="0">
+           <widget class="QRadioButton" name="bigger">
+            <property name="text">
+             <string>Больше</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QRadioButton" name="divide">
+            <property name="text">
+             <string>Деление</string>
             </property>
            </widget>
           </item>
@@ -194,20 +208,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QRadioButton" name="input">
-            <property name="text">
-             <string>Ввод числа</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QRadioButton" name="inputString">
-            <property name="text">
-             <string>Ввод строки</string>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="0">
            <widget class="QRadioButton" name="output">
             <property name="text">
@@ -215,10 +215,10 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QRadioButton" name="outputString">
+          <item row="26" column="0">
+           <widget class="QRadioButton" name="negation">
             <property name="text">
-             <string>Вывод строки</string>
+             <string>Отрицание</string>
             </property>
            </widget>
           </item>
@@ -235,52 +235,31 @@
             </property>
            </widget>
           </item>
+          <item row="27" column="0">
+           <widget class="QRadioButton" name="conjunction">
+            <property name="text">
+             <string>Конъюнкция</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QRadioButton" name="inputString">
+            <property name="text">
+             <string>Ввод строки</string>
+            </property>
+           </widget>
+          </item>
+          <item row="24" column="0">
+           <widget class="QRadioButton" name="equal">
+            <property name="text">
+             <string>Равно</string>
+            </property>
+           </widget>
+          </item>
           <item row="7" column="0">
            <widget class="QRadioButton" name="sum">
             <property name="text">
              <string>Сумма</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="QRadioButton" name="diff">
-            <property name="text">
-             <string>Разность</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QRadioButton" name="mult">
-            <property name="text">
-             <string>Умножение</string>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="0">
-           <widget class="QRadioButton" name="divide">
-            <property name="text">
-             <string>Деление</string>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="0">
-           <widget class="QRadioButton" name="mod">
-            <property name="text">
-             <string>Деление по модулю</string>
-            </property>
-           </widget>
-          </item>
-          <item row="12" column="0">
-           <widget class="QRadioButton" name="pow">
-            <property name="text">
-             <string>Возведение в степень</string>
-            </property>
-           </widget>
-          </item>
-          <item row="13" column="0">
-           <widget class="QRadioButton" name="sqrt">
-            <property name="text">
-             <string>Корень из числа</string>
             </property>
            </widget>
           </item>
@@ -297,31 +276,10 @@
             </property>
            </widget>
           </item>
-          <item row="15" column="0">
-           <widget class="QRadioButton" name="concat">
+          <item row="13" column="0">
+           <widget class="QRadioButton" name="sqrt">
             <property name="text">
-             <string>Конкатенация</string>
-            </property>
-           </widget>
-          </item>
-          <item row="16" column="0">
-           <widget class="QRadioButton" name="substring">
-            <property name="text">
-             <string>Извлечение подстроки</string>
-            </property>
-           </widget>
-          </item>
-          <item row="17" column="0">
-           <widget class="QRadioButton" name="equals">
-            <property name="text">
-             <string>Сравнение строк</string>
-            </property>
-           </widget>
-          </item>
-          <item row="18" column="0">
-           <widget class="QRadioButton" name="find">
-            <property name="text">
-             <string>Поиск подстроки</string>
+             <string>Корень из числа</string>
             </property>
            </widget>
           </item>
@@ -332,10 +290,66 @@
             </property>
            </widget>
           </item>
-          <item row="20" column="0">
-           <widget class="QRadioButton" name="reverse">
+          <item row="11" column="0">
+           <widget class="QRadioButton" name="mod">
             <property name="text">
-             <string>Разворот строки</string>
+             <string>Деление по модулю</string>
+            </property>
+           </widget>
+          </item>
+          <item row="25" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Логические операции:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="start">
+            <property name="text">
+             <string>Начальный блок</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="0">
+           <widget class="QRadioButton" name="concat">
+            <property name="text">
+             <string>Конкатенация</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QRadioButton" name="diff">
+            <property name="text">
+             <string>Разность</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QRadioButton" name="input">
+            <property name="text">
+             <string>Ввод числа</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QRadioButton" name="mult">
+            <property name="text">
+             <string>Умножение</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QRadioButton" name="outputString">
+            <property name="text">
+             <string>Вывод строки</string>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="0">
+           <widget class="QRadioButton" name="find">
+            <property name="text">
+             <string>Поиск подстроки</string>
             </property>
            </widget>
           </item>
@@ -348,28 +362,42 @@
              </size>
             </property>
             <property name="text">
-             <string>Логические операции:</string>
+             <string>Операции сравнения:</string>
             </property>
            </widget>
           </item>
-          <item row="22" column="0">
-           <widget class="QRadioButton" name="less">
+          <item row="16" column="0">
+           <widget class="QRadioButton" name="substring">
             <property name="text">
-             <string>Меньше</string>
+             <string>Извлечение подстроки</string>
             </property>
            </widget>
           </item>
-          <item row="23" column="0">
-           <widget class="QRadioButton" name="bigger">
+          <item row="12" column="0">
+           <widget class="QRadioButton" name="pow">
             <property name="text">
-             <string>Больше</string>
+             <string>Возведение в степень</string>
             </property>
            </widget>
           </item>
-          <item row="24" column="0">
-           <widget class="QRadioButton" name="equal">
+          <item row="17" column="0">
+           <widget class="QRadioButton" name="equals">
             <property name="text">
-             <string>Равно</string>
+             <string>Сравнение строк</string>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="0">
+           <widget class="QRadioButton" name="reverse">
+            <property name="text">
+             <string>Разворот строки</string>
+            </property>
+           </widget>
+          </item>
+          <item row="28" column="0">
+           <widget class="QRadioButton" name="disjunction">
+            <property name="text">
+             <string>Дизъюнкция</string>
             </property>
            </widget>
           </item>
