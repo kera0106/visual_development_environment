@@ -220,3 +220,15 @@ Area* GraphicScene::isOutputConnectArea(QGraphicsSceneMouseEvent *event){
     }
     return nullptr;
 }
+
+void GraphicScene::clearCanvas(){
+    clear();
+    inputConnectionArea.clear();
+    outputConnectionArea.clear();
+
+    program = Program();
+
+    startArea = nullptr;
+
+    linkPoints.clear();
+}

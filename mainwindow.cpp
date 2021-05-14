@@ -189,3 +189,9 @@ void MainWindow::on_reverse_clicked()
 {
     scene->setButtonType(REVERSE);
 }
+
+void MainWindow::on_clear_clicked()
+{
+    scene->clearCanvas();
+}
+

@@ -70,6 +70,8 @@ private slots:
 
     void on_reverse_clicked();
 
+    void on_clear_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

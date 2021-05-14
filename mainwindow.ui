@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
+    <width>1133</width>
     <height>640</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
        <enum>QLayout::SetFixedSize</enum>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="fileLayout" stretch="0,0">
+       <layout class="QHBoxLayout" name="fileLayout" stretch="0,0,0">
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
@@ -69,6 +69,25 @@
           </property>
           <property name="text">
            <string>Сохранить</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="clear">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Verdana</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Очистить</string>
           </property>
          </widget>
         </item>
@@ -150,8 +169,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>296</width>
-           <height>534</height>
+           <width>528</width>
+           <height>674</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout">

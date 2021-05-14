@@ -51,6 +51,8 @@ public:
 
     void addBlock(QGraphicsSceneMouseEvent *);
 
+    void clearCanvas();
+
     void setProgram(Program p);
     Program& getProgram();
 
