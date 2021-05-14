@@ -224,7 +224,7 @@ void NegationBlock::execute()
 {
     bool arg = getSubblock("Аргумент")->getResult().toBool();
 
-    this->result = int(arg);
+    this->result = int(!arg);
 }
 
 void ConjunctionBlock::execute()
