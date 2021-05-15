@@ -70,6 +70,14 @@ private slots:
 
     void on_reverse_clicked();
 
+    void on_clear_clicked();
+
+    void on_negation_clicked();
+
+    void on_disjunction_clicked();
+
+    void on_conjunction_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 

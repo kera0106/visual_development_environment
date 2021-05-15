@@ -189,3 +189,24 @@ void MainWindow::on_reverse_clicked()
 {
     scene->setButtonType(REVERSE);
 }
+
+void MainWindow::on_negation_clicked()
+{
+    scene->setButtonType(NEGATION);
+}
+
+void MainWindow::on_conjunction_clicked()
+{
+    scene->setButtonType(CONJUNCTION);
+}
+
+
+void MainWindow::on_disjunction_clicked()
+{
+    scene->setButtonType(DISJUNCTION);
+}
+
+void MainWindow::on_clear_clicked()
+{
+    scene->clearCanvas();
+}

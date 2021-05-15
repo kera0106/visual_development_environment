@@ -55,6 +55,12 @@ public:
             return new ReplaceBlock(pos);
         case REVERSE:
             return new ReverseBlock(pos);
+        case NEGATION:
+            return new NegationBlock(pos);
+        case CONJUNCTION:
+            return new ConjunctionBlock(pos);
+        case DISJUNCTION:
+            return new DisjunctionBlock(pos);
         }
     }
     static Block* fromJSON(QWidget *parent, QJsonObject jsonBlock) {

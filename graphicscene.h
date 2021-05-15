@@ -3,6 +3,7 @@
 
 #include "block.h"
 
+#include <QPainterPath>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QTimer>
@@ -50,6 +51,8 @@ public:
 
     void addBlock(QGraphicsSceneMouseEvent *);
 
+    void clearCanvas();
+
     void setProgram(Program p);
     Program& getProgram();
 
@@ -65,6 +68,8 @@ private:
 
     QVector<QPointF> linkPoints;
     BlockType buttonType;
+
+    bool isBlockSelected = false;
 
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
 };

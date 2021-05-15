@@ -68,6 +68,10 @@ public:
     void execute() {
 
         Block *next = beginBlock;
+        if (!next){
+            return;
+        }
+
         while (next) {
             next->execute();
             next = next->getNext();
@@ -119,7 +123,7 @@ public:
 
 private:
     QVector<Block*> blocks;
-    Block *beginBlock;
+    Block *beginBlock = nullptr;
 };
 
 #endif // PROGRAM_H

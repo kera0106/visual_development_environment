@@ -97,9 +97,6 @@ void SqrtBlock::execute()
     int arg1 = getSubblock("Аргумент")->getResult().toInt();
 
     this->result = sqrt(arg1);
-
-    std::cout << arg1 << std::endl;
-    std::cout << this->result.toFloat() << std::endl;
 }
 
 void LessBlock::execute()
@@ -221,4 +218,27 @@ void ReverseBlock::execute()
     }
 
     this->result = resString;
+}
+
+void NegationBlock::execute()
+{
+    bool arg = getSubblock("Аргумент")->getResult().toBool();
+
+    this->result = int(!arg);
+}
+
+void ConjunctionBlock::execute()
+{
+    bool arg1 = getSubblock("Аргумент1")->getResult().toBool();
+    bool arg2 = getSubblock("Аргумент2")->getResult().toBool();
+
+    this->result = int(arg1 && arg2);
+}
+
+void DisjunctionBlock::execute()
+{
+    bool arg1 = getSubblock("Аргумент1")->getResult().toBool();
+    bool arg2 = getSubblock("Аргумент2")->getResult().toBool();
+
+    this->result = int(arg1 || arg2);
 }
