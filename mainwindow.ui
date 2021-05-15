@@ -161,6 +161,12 @@
       </item>
       <item>
        <widget class="QScrollArea" name="scrollArea">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
@@ -168,9 +174,9 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-235</y>
-           <width>528</width>
-           <height>778</height>
+           <y>-202</y>
+           <width>277</width>
+           <height>746</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout">
@@ -299,6 +305,12 @@
           </item>
           <item row="25" column="0">
            <widget class="QLabel" name="label_5">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
             <property name="text">
              <string>Логические операции:</string>
             </property>
