@@ -46,7 +46,8 @@ void MainWindow::on_run_clicked()
 
 void MainWindow::on_stop_clicked()
 {
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка стоп");
+    auto &program = scene->getProgram();
+    program.stop();
 }
 
 void MainWindow::on_open_clicked()

@@ -70,14 +70,13 @@ public:
     void execute() {
 
         Block *next = beginBlock;
-        if (!next){
-            return;
-        }
 
-        while (next) {
+        while (next && !_stop) {
             next->execute(env);
             next = next->getNext();
         }
+
+        qDebug() << "END";
 
     }
 
@@ -127,10 +126,15 @@ public:
         this->env = env;
     }
 
+    void stop() {
+        _stop = true;
+    }
+
 private:
     ProgramEnvironment *env = nullptr;
     QVector<Block*> blocks;
     Block *beginBlock = nullptr;
+    bool _stop = false;
 };
 
 #endif // PROGRAM_H
