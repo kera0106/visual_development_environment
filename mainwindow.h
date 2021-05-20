@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "graphicscene.h"
+#include "programthread.h"
 
 #include <QMainWindow>
 
@@ -78,6 +79,8 @@ private slots:
 
     void on_conjunction_clicked();
 
+    void showDialog();
+
 private:
     void resizeEvent(QResizeEvent * event);
 
@@ -85,5 +88,6 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
     GraphicScene *scene;
+    ProgramThread *programThread = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -19,8 +19,7 @@ SOURCES += \
     blocks.cpp \
     graphicscene.cpp \
     main.cpp \
-    mainwindow.cpp \
-    program.cpp
+    mainwindow.cpp
 
 HEADERS += \
     block.h \
@@ -29,7 +28,9 @@ HEADERS += \
     blocktype.h \
     graphicscene.h \
     mainwindow.h \
-    program.h
+    program.h \
+    programenvironment.h \
+    programthread.h
 
 FORMS += \
     mainwindow.ui

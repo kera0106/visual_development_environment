@@ -6,6 +6,8 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 
+#include "programenvironment.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -28,7 +30,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_run_clicked()
 {
-    scene->getProgram().execute();
+    auto *programEnvironment = new ProgramEnvironment();
+    QObject::connect(programEnvironment, &ProgramEnvironment::showDialog, this, &MainWindow::showDialog, Qt::BlockingQueuedConnection);
+
+    auto &program = scene->getProgram();
+    program.setEnvironment(programEnvironment);
+    programThread = new ProgramThread(&program);
+    programThread->start();
+
 }
 
 void MainWindow::on_stop_clicked()
@@ -198,6 +207,11 @@ void MainWindow::on_negation_clicked()
 void MainWindow::on_conjunction_clicked()
 {
     scene->setButtonType(CONJUNCTION);
+}
+
+void MainWindow::showDialog()
+{
+    QMessageBox::information(this, "Вывод строки", "Hello World!");
 }
 
 

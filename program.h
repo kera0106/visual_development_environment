@@ -5,6 +5,8 @@
 #include "blockfabrica.h"
 #include "blocks.h"
 
+#include <programenvironment.h>
+
 class Program
 {
 public:
@@ -73,7 +75,7 @@ public:
         }
 
         while (next) {
-            next->execute();
+            next->execute(env);
             next = next->getNext();
         }
 
@@ -121,7 +123,12 @@ public:
         return points;
     }
 
+    void setEnvironment(ProgramEnvironment *env) {
+        this->env = env;
+    }
+
 private:
+    ProgramEnvironment *env = nullptr;
     QVector<Block*> blocks;
     Block *beginBlock = nullptr;
 };

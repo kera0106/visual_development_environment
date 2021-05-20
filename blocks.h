@@ -14,7 +14,7 @@ public:
         this->type = BlockType::START;
         this->name = "Начало";
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class NumberInputBlock: public Block {
@@ -27,7 +27,7 @@ public:
         };
 
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 private:
     QWidget *parent;
 };
@@ -42,7 +42,7 @@ public:
         };
 
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 private:
     QWidget *parent;
 };
@@ -60,7 +60,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ConcatBlock: public Block {
@@ -76,7 +76,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class SubstringBlock: public Block {
@@ -93,7 +93,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class DiffBlock: public Block {
@@ -109,7 +109,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class MultBlock: public Block {
@@ -125,7 +125,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ModBlock: public Block {
@@ -141,7 +141,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class PowBlock: public Block {
@@ -157,7 +157,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class SqrtBlock: public Block {
@@ -172,7 +172,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class DivBlock: public Block {
@@ -188,7 +188,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class NumberOutputBlock: public Block {
@@ -201,7 +201,7 @@ public:
         };
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 
 private:
     QWidget *parent;
@@ -217,7 +217,7 @@ public:
         };
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 
 private:
     QWidget *parent;
@@ -237,7 +237,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -254,7 +254,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -271,7 +271,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -288,7 +288,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -303,7 +303,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 2)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ReplaceBlock: public Block {
@@ -318,7 +318,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 3)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ReverseBlock: public Block {
@@ -331,7 +331,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 1)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class NegationBlock: public Block {
@@ -346,7 +346,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ConjunctionBlock: public Block {
@@ -362,7 +362,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class DisjunctionBlock: public Block {
@@ -378,7 +378,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 #endif // BLOCKS_H

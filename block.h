@@ -10,6 +10,7 @@
 #include <QDebug>
 
 #include "blocktype.h"
+#include "programenvironment.h"
 
 class BlockFabrica;
 
@@ -128,7 +129,7 @@ public:
     Block(QPointF pos): id(current_id++), pos(pos) {}
 
 
-    virtual void execute()=0;
+    virtual void execute(ProgramEnvironment*)=0;
     virtual Block *getNext() { return this->end.getBlock(); }
 
     void setEnd(Block *block, QVector<QPointF> points) { this->end = Subblock::Link(block, points); }
