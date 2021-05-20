@@ -76,8 +76,7 @@ public:
             next = next->getNext();
         }
 
-        qDebug() << "END";
-
+        _stop = false;
     }
 
     void setBegin(Block *beginBlock) { this->beginBlock = beginBlock; }

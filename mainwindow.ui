@@ -126,6 +126,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="stop">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -174,9 +177,9 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-202</y>
-           <width>277</width>
-           <height>746</height>
+           <y>0</y>
+           <width>284</width>
+           <height>852</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout">

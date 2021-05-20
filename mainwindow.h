@@ -28,6 +28,8 @@ private slots:
 
     void on_save_clicked();
 
+    void on_program_finished();
+
     void slotTimer();
 
     void on_start_clicked();
@@ -87,7 +89,9 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
     GraphicScene *scene;
+
     ProgramThread *programThread = nullptr;
+    ProgramEnvironment *programEnvironment = nullptr;
     ThreadDialogConnector TDConnector;
 };
 #endif // MAINWINDOW_H

@@ -5,7 +5,6 @@
 #include <QMutex>
 #include <QObject>
 #include <QWaitCondition>
-#include <QDebug>
 
 class ProgramEnvironment: public QObject {
 

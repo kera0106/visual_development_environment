@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QInputDialog>
 #include <QMessageBox>
-#include <QDebug>
-
 
 class ThreadDialogConnector: public QObject {
     Q_OBJECT
