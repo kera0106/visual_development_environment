@@ -5,27 +5,26 @@ int Block::current_id = 0;
 
 void BeginBlock::execute(ProgramEnvironment* env)
 {
-    env->printHello();
 }
 
 void NumberInputBlock::execute(ProgramEnvironment* env)
 {
-    this->result = QInputDialog::getInt(parent, "Ввод числа", "Число:");
+    this->result = env->getInt();
 }
 
 void NumberOutputBlock::execute(ProgramEnvironment* env)
 {
-    QMessageBox::information(parent, "Вывод числа", getSubblock("Аргумент")->getResult().toString());
+    env->output("Вывод числа", getSubblock("Аргумент")->getResult().toString());
 }
 
 void StringInputBlock::execute(ProgramEnvironment* env)
 {
-    this->result = QInputDialog::getText(parent, "Ввод строки", "Строка:");
+    this->result = env->getText();
 }
 
 void StringOutputBlock::execute(ProgramEnvironment* env)
 {
-    QMessageBox::information(parent, "Вывод строки", getSubblock("Аргумент")->getResult().toString());
+    env->output("Вывод строки", getSubblock("Аргумент")->getResult().toString());
 }
 
 void SumBlock::execute(ProgramEnvironment* env)

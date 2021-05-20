@@ -31,7 +31,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_run_clicked()
 {
     auto *programEnvironment = new ProgramEnvironment();
-    QObject::connect(programEnvironment, &ProgramEnvironment::showDialog, this, &MainWindow::showDialog, Qt::BlockingQueuedConnection);
+    QObject::connect(programEnvironment, &ProgramEnvironment::showInputIntDialog, &this->TDConnector, &ThreadDialogConnector::showInputIntDialog);
+    QObject::connect(programEnvironment, &ProgramEnvironment::showInputTextDialog, &this->TDConnector, &ThreadDialogConnector::showInputTextDialog);
+
+    QObject::connect(programEnvironment, &ProgramEnvironment::showText, &this->TDConnector, &ThreadDialogConnector::showText, Qt::BlockingQueuedConnection);
+
+    QObject::connect(&this->TDConnector, &ThreadDialogConnector::dialogResult, programEnvironment, &ProgramEnvironment::onDialogResult);
 
     auto &program = scene->getProgram();
     program.setEnvironment(programEnvironment);
@@ -208,12 +213,6 @@ void MainWindow::on_conjunction_clicked()
 {
     scene->setButtonType(CONJUNCTION);
 }
-
-void MainWindow::showDialog()
-{
-    QMessageBox::information(this, "Вывод строки", "Hello World!");
-}
-
 
 void MainWindow::on_disjunction_clicked()
 {

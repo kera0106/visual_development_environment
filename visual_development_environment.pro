@@ -30,7 +30,8 @@ HEADERS += \
     mainwindow.h \
     program.h \
     programenvironment.h \
-    programthread.h
+    programthread.h \
+    threaddialogconnector.h
 
 FORMS += \
     mainwindow.ui

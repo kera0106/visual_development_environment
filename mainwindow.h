@@ -3,6 +3,7 @@
 
 #include "graphicscene.h"
 #include "programthread.h"
+#include "threaddialogconnector.h"
 
 #include <QMainWindow>
 
@@ -79,8 +80,6 @@ private slots:
 
     void on_conjunction_clicked();
 
-    void showDialog();
-
 private:
     void resizeEvent(QResizeEvent * event);
 
@@ -89,5 +88,6 @@ private:
     QTimer *timer;
     GraphicScene *scene;
     ProgramThread *programThread = nullptr;
+    ThreadDialogConnector TDConnector;
 };
 #endif // MAINWINDOW_H
