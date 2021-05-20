@@ -13,11 +13,11 @@ public:
     Program() {}
     Program(BeginBlock *beginBlock): beginBlock(beginBlock) {}
 
-    Program(QWidget *parent, QJsonObject jsonProgram) {
+    Program(QJsonObject jsonProgram) {
 
         QJsonArray jsonBlocks = jsonProgram["blocks"].toArray();
         for (auto jsonBlock: jsonBlocks) {
-            Block *block = BlockFabrica::fromJSON(parent, jsonBlock.toObject());
+            Block *block = BlockFabrica::fromJSON(jsonBlock.toObject());
             addBlock(block);
             if (block->getId() == jsonProgram["id"].toInt()) {
                 setBegin(block);

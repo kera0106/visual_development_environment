@@ -19,7 +19,7 @@ public:
 
 class NumberInputBlock: public Block {
 public:
-    NumberInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    NumberInputBlock(QPointF pos): Block(pos){
         this->type = BlockType::INPUT;
         this->name = "Ввод числа";
         this->subblocks = {
@@ -28,13 +28,14 @@ public:
 
     }
     void execute(ProgramEnvironment*);
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 class StringInputBlock: public Block {
 public:
-    StringInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    StringInputBlock(QPointF pos): Block(pos) {
         this->type = BlockType::INPUT_STR;
         this->name = "Ввод строки";
         this->subblocks = {
@@ -43,8 +44,9 @@ public:
 
     }
     void execute(ProgramEnvironment*);
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 class SumBlock: public Block {
@@ -193,7 +195,7 @@ public:
 
 class NumberOutputBlock: public Block {
 public:
-    NumberOutputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    NumberOutputBlock(QPointF pos): Block(pos) {
         this->type = BlockType::OUTPUT;
         this->name = "Вывод числа";
         this->subblocks = {
@@ -202,14 +204,14 @@ public:
     }
 
     void execute(ProgramEnvironment*);
-
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 class StringOutputBlock: public Block {
 public:
-    StringOutputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    StringOutputBlock(QPointF pos): Block(pos) {
         this->type = BlockType::OUTPUT_STR;
         this->name = "Вывод строки";
         this->subblocks = {
@@ -218,9 +220,9 @@ public:
     }
 
     void execute(ProgramEnvironment*);
-
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 

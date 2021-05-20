@@ -9,22 +9,42 @@ void BeginBlock::execute(ProgramEnvironment* env)
 
 void NumberInputBlock::execute(ProgramEnvironment* env)
 {
-    this->result = env->getInt();
+    this->result = env->getInt(&this->isOk);
+}
+
+Block *NumberInputBlock::getNext()
+{
+    return this->isOk ? this->end.getBlock() : nullptr;
 }
 
 void NumberOutputBlock::execute(ProgramEnvironment* env)
 {
-    env->output("Вывод числа", getSubblock("Аргумент")->getResult().toString());
+    this->isOk = env->output("Вывод числа", getSubblock("Аргумент")->getResult().toString());
+}
+
+Block *NumberOutputBlock::getNext()
+{
+    return this->isOk ? this->end.getBlock() : nullptr;
 }
 
 void StringInputBlock::execute(ProgramEnvironment* env)
 {
-    this->result = env->getText();
+    this->result = env->getText(&this->isOk);
+}
+
+Block *StringInputBlock::getNext()
+{
+    return this->isOk ? this->end.getBlock() : nullptr;
 }
 
 void StringOutputBlock::execute(ProgramEnvironment* env)
 {
-    env->output("Вывод строки", getSubblock("Аргумент")->getResult().toString());
+    this->isOk = env->output("Вывод строки", getSubblock("Аргумент")->getResult().toString());
+}
+
+Block *StringOutputBlock::getNext()
+{
+    return this->isOk ? this->end.getBlock() : nullptr;
 }
 
 void SumBlock::execute(ProgramEnvironment* env)

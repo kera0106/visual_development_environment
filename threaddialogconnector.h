@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QDebug>
 
 
 class ThreadDialogConnector: public QObject {
@@ -33,7 +34,8 @@ public slots:
     }
 
     void showText(QString title, QString text) {
-        QMessageBox::information(nullptr, title, text);
+        auto ret = QMessageBox::information(nullptr, title, text, QMessageBox::Ok, QMessageBox::Cancel);
+        emit dialogResult(QVariant(), ret == QMessageBox::Ok);
     }
 
 signals:

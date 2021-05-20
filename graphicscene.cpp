@@ -171,7 +171,7 @@ void GraphicScene::drawBeginBlock(Block *block) {
 
 void GraphicScene::addBlock(QGraphicsSceneMouseEvent *event) {
 
-    auto block = BlockFabrica::fromBlockType((QWidget*)this->parent(), buttonType, event->scenePos());
+    auto block = BlockFabrica::fromBlockType(buttonType, event->scenePos());
     program.addBlock(block);
     drawBlock(block);
     previousPoint = event->scenePos();
