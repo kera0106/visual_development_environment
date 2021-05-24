@@ -14,12 +14,12 @@ public:
         this->type = BlockType::START;
         this->name = "Начало";
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class NumberInputBlock: public Block {
 public:
-    NumberInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    NumberInputBlock(QPointF pos): Block(pos){
         this->type = BlockType::INPUT;
         this->name = "Ввод числа";
         this->subblocks = {
@@ -27,14 +27,15 @@ public:
         };
 
     }
-    void execute();
+    void execute(ProgramEnvironment*);
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 class StringInputBlock: public Block {
 public:
-    StringInputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    StringInputBlock(QPointF pos): Block(pos) {
         this->type = BlockType::INPUT_STR;
         this->name = "Ввод строки";
         this->subblocks = {
@@ -42,9 +43,10 @@ public:
         };
 
     }
-    void execute();
+    void execute(ProgramEnvironment*);
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 class SumBlock: public Block {
@@ -60,7 +62,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ConcatBlock: public Block {
@@ -76,7 +78,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class SubstringBlock: public Block {
@@ -93,7 +95,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class DiffBlock: public Block {
@@ -109,7 +111,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class MultBlock: public Block {
@@ -125,7 +127,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ModBlock: public Block {
@@ -141,7 +143,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class PowBlock: public Block {
@@ -157,7 +159,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class SqrtBlock: public Block {
@@ -172,7 +174,7 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class DivBlock: public Block {
@@ -188,12 +190,12 @@ public:
 
     }
 
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class NumberOutputBlock: public Block {
 public:
-    NumberOutputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    NumberOutputBlock(QPointF pos): Block(pos) {
         this->type = BlockType::OUTPUT;
         this->name = "Вывод числа";
         this->subblocks = {
@@ -201,15 +203,15 @@ public:
         };
     }
 
-    void execute();
-
+    void execute(ProgramEnvironment*);
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 class StringOutputBlock: public Block {
 public:
-    StringOutputBlock(QWidget *parent, QPointF pos): Block(pos), parent(parent) {
+    StringOutputBlock(QPointF pos): Block(pos) {
         this->type = BlockType::OUTPUT_STR;
         this->name = "Вывод строки";
         this->subblocks = {
@@ -217,10 +219,10 @@ public:
         };
     }
 
-    void execute();
-
+    void execute(ProgramEnvironment*);
+    Block* getNext();
 private:
-    QWidget *parent;
+    bool isOk;
 };
 
 
@@ -237,7 +239,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -254,7 +256,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -271,7 +273,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -288,7 +290,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 4)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
     Block* getNext();
 };
 
@@ -303,7 +305,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 2)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ReplaceBlock: public Block {
@@ -318,7 +320,7 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 3)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
 };
 
 class ReverseBlock: public Block {
@@ -331,7 +333,54 @@ public:
             {"Результат", Subblock(this, SubblockType::OUTPUT, 1)}
         };
     }
-    void execute();
+    void execute(ProgramEnvironment*);
+};
+
+class NegationBlock: public Block {
+public:
+    NegationBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::NEGATION;
+        this->name = "Отрицание";
+        this->subblocks = {
+            {"Аргумент", Subblock(this, SubblockType::INPUT, 0)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT, 1)}
+        };
+
+    }
+
+    void execute(ProgramEnvironment*);
+};
+
+class ConjunctionBlock: public Block {
+public:
+    ConjunctionBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::CONJUNCTION;
+        this->name = "Конъюнкция";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT, 0)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT, 1)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT, 2)}
+        };
+
+    }
+
+    void execute(ProgramEnvironment*);
+};
+
+class DisjunctionBlock: public Block {
+public:
+    DisjunctionBlock(QPointF pos): Block(pos) {
+        this->type = BlockType::DISJUNCTION;
+        this->name = "Дизъюнкция";
+        this->subblocks = {
+            {"Аргумент1", Subblock(this, SubblockType::INPUT, 0)},
+            {"Аргумент2", Subblock(this, SubblockType::INPUT, 1)},
+            {"Результат", Subblock(this, SubblockType::OUTPUT, 2)}
+        };
+
+    }
+
+    void execute(ProgramEnvironment*);
 };
 
 #endif // BLOCKS_H

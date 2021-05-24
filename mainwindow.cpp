@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -28,12 +27,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_run_clicked()
 {
-    scene->getProgram().execute();
+    programEnvironment = new ProgramEnvironment();
+    QObject::connect(programEnvironment, &ProgramEnvironment::showInputIntDialog,  &this->TDConnector, &ThreadDialogConnector::showInputIntDialog);
+    QObject::connect(programEnvironment, &ProgramEnvironment::showInputTextDialog, &this->TDConnector, &ThreadDialogConnector::showInputTextDialog);
+    QObject::connect(programEnvironment, &ProgramEnvironment::showText,            &this->TDConnector, &ThreadDialogConnector::showText);
+
+    QObject::connect(&this->TDConnector, &ThreadDialogConnector::dialogResult, programEnvironment, &ProgramEnvironment::onDialogResult);
+
+    auto &program = scene->getProgram();
+    program.setEnvironment(programEnvironment);
+
+    programThread = new ProgramThread(&program);
+    QObject::connect(programThread, &ProgramThread::finished, this, &MainWindow::on_program_finished);
+
+    programThread->start();
+
+    ui->run->setEnabled(false);
+    ui->stop->setEnabled(true);
 }
 
 void MainWindow::on_stop_clicked()
 {
-    QMessageBox::about(this, "Нажатие кнопки", "Кнопка стоп");
+    auto &program = scene->getProgram();
+    program.stop();
 }
 
 void MainWindow::on_open_clicked()
@@ -48,7 +64,7 @@ void MainWindow::on_open_clicked()
 
     QJsonDocument document = QJsonDocument::fromJson(file.readAll());
 
-    Program p(this, document.object());
+    Program p(document.object());
     scene->setProgram(p);
 }
 
@@ -71,6 +87,18 @@ void MainWindow::on_save_clicked()
 
         file.write(QJsonDocument(json).toJson());
     }
+}
+
+void MainWindow::on_program_finished()
+{
+    ui->run->setEnabled(true);
+    ui->stop->setEnabled(false);
+
+    delete programThread;
+    delete programEnvironment;
+
+    programThread = nullptr;
+    programEnvironment = nullptr;
 }
 
 void MainWindow::slotTimer()
@@ -188,4 +216,24 @@ void MainWindow::on_replace_clicked()
 void MainWindow::on_reverse_clicked()
 {
     scene->setButtonType(REVERSE);
+}
+
+void MainWindow::on_negation_clicked()
+{
+    scene->setButtonType(NEGATION);
+}
+
+void MainWindow::on_conjunction_clicked()
+{
+    scene->setButtonType(CONJUNCTION);
+}
+
+void MainWindow::on_disjunction_clicked()
+{
+    scene->setButtonType(DISJUNCTION);
+}
+
+void MainWindow::on_clear_clicked()
+{
+    scene->clearCanvas();
 }

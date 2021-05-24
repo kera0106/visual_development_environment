@@ -5,17 +5,19 @@
 #include "blockfabrica.h"
 #include "blocks.h"
 
+#include <programenvironment.h>
+
 class Program
 {
 public:
     Program() {}
     Program(BeginBlock *beginBlock): beginBlock(beginBlock) {}
 
-    Program(QWidget *parent, QJsonObject jsonProgram) {
+    Program(QJsonObject jsonProgram) {
 
         QJsonArray jsonBlocks = jsonProgram["blocks"].toArray();
         for (auto jsonBlock: jsonBlocks) {
-            Block *block = BlockFabrica::fromJSON(parent, jsonBlock.toObject());
+            Block *block = BlockFabrica::fromJSON(jsonBlock.toObject());
             addBlock(block);
             if (block->getId() == jsonProgram["id"].toInt()) {
                 setBegin(block);
@@ -68,11 +70,13 @@ public:
     void execute() {
 
         Block *next = beginBlock;
-        while (next) {
-            next->execute();
+
+        while (next && !_stop) {
+            next->execute(env);
             next = next->getNext();
         }
 
+        _stop = false;
     }
 
     void setBegin(Block *beginBlock) { this->beginBlock = beginBlock; }
@@ -117,9 +121,19 @@ public:
         return points;
     }
 
+    void setEnvironment(ProgramEnvironment *env) {
+        this->env = env;
+    }
+
+    void stop() {
+        _stop = true;
+    }
+
 private:
+    ProgramEnvironment *env = nullptr;
     QVector<Block*> blocks;
-    Block *beginBlock;
+    Block *beginBlock = nullptr;
+    bool _stop = false;
 };
 
 #endif // PROGRAM_H

@@ -3,31 +3,51 @@
 
 int Block::current_id = 0;
 
-void BeginBlock::execute()
+void BeginBlock::execute(ProgramEnvironment* env)
 {
 }
 
-void NumberInputBlock::execute()
+void NumberInputBlock::execute(ProgramEnvironment* env)
 {
-    this->result = QInputDialog::getInt(parent, "Ввод числа", "Число:");
+    this->result = env->getInt(&this->isOk);
 }
 
-void NumberOutputBlock::execute()
+Block *NumberInputBlock::getNext()
 {
-    QMessageBox::information(parent, "Вывод числа", getSubblock("Аргумент")->getResult().toString());
+    return this->isOk ? this->end.getBlock() : nullptr;
 }
 
-void StringInputBlock::execute()
+void NumberOutputBlock::execute(ProgramEnvironment* env)
 {
-    this->result = QInputDialog::getText(parent, "Ввод строки", "Строка:");
+    this->isOk = env->output("Вывод числа", getSubblock("Аргумент")->getResult().toString());
 }
 
-void StringOutputBlock::execute()
+Block *NumberOutputBlock::getNext()
 {
-    QMessageBox::information(parent, "Вывод строки", getSubblock("Аргумент")->getResult().toString());
+    return this->isOk ? this->end.getBlock() : nullptr;
 }
 
-void SumBlock::execute()
+void StringInputBlock::execute(ProgramEnvironment* env)
+{
+    this->result = env->getText(&this->isOk);
+}
+
+Block *StringInputBlock::getNext()
+{
+    return this->isOk ? this->end.getBlock() : nullptr;
+}
+
+void StringOutputBlock::execute(ProgramEnvironment* env)
+{
+    this->isOk = env->output("Вывод строки", getSubblock("Аргумент")->getResult().toString());
+}
+
+Block *StringOutputBlock::getNext()
+{
+    return this->isOk ? this->end.getBlock() : nullptr;
+}
+
+void SumBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Слагаемое 1")->getResult().toInt();
     int arg2 = getSubblock("Слагаемое 2")->getResult().toInt();
@@ -35,7 +55,7 @@ void SumBlock::execute()
     this->result = arg1 + arg2;
 }
 
-void ConcatBlock::execute()
+void ConcatBlock::execute(ProgramEnvironment* env)
 {
     QString arg1 = getSubblock("Строка 1")->getResult().toString();
     QString arg2 = getSubblock("Строка 2")->getResult().toString();
@@ -43,7 +63,7 @@ void ConcatBlock::execute()
     this->result = arg1 + arg2;
 }
 
-void SubstringBlock::execute()
+void SubstringBlock::execute(ProgramEnvironment* env)
 {
     QString str = getSubblock("Строка")->getResult().toString();
     int startStr = getSubblock("Начало")->getResult().toInt();
@@ -52,7 +72,7 @@ void SubstringBlock::execute()
     this->result = str.mid(startStr, endStr-startStr);
 }
 
-void DiffBlock::execute()
+void DiffBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Уменьшаемое")->getResult().toInt();
     int arg2 = getSubblock("Вычитаемое")->getResult().toInt();
@@ -60,7 +80,7 @@ void DiffBlock::execute()
     this->result = arg1 - arg2;
 }
 
-void MultBlock::execute()
+void MultBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Множитель 1")->getResult().toInt();
     int arg2 = getSubblock("Множитель 2")->getResult().toInt();
@@ -68,7 +88,7 @@ void MultBlock::execute()
     this->result = arg1 * arg2;
 }
 
-void DivBlock::execute()
+void DivBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Делимое")->getResult().toInt();
     int arg2 = getSubblock("Делитель")->getResult().toInt();
@@ -76,7 +96,7 @@ void DivBlock::execute()
     this->result = arg1 / arg2;
 }
 
-void ModBlock::execute()
+void ModBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Делимое")->getResult().toInt();
     int arg2 = getSubblock("Делитель")->getResult().toInt();
@@ -84,7 +104,7 @@ void ModBlock::execute()
     this->result = arg1 % arg2;
 }
 
-void PowBlock::execute()
+void PowBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Основание")->getResult().toInt();
     int arg2 = getSubblock("Показатель")->getResult().toInt();
@@ -92,17 +112,14 @@ void PowBlock::execute()
     this->result = pow(arg1, arg2);
 }
 
-void SqrtBlock::execute()
+void SqrtBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Аргумент")->getResult().toInt();
 
     this->result = sqrt(arg1);
-
-    std::cout << arg1 << std::endl;
-    std::cout << this->result.toFloat() << std::endl;
 }
 
-void LessBlock::execute()
+void LessBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Аргумент1")->getResult().toInt();
     int arg2 = getSubblock("Аргумент2")->getResult().toInt();
@@ -124,7 +141,7 @@ Block *LessBlock::getNext()
     }
 }
 
-void BiggerBlock::execute()
+void BiggerBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Аргумент1")->getResult().toInt();
     int arg2 = getSubblock("Аргумент2")->getResult().toInt();
@@ -148,7 +165,7 @@ Block *BiggerBlock::getNext()
 
 }
 
-void EqualBlock::execute()
+void EqualBlock::execute(ProgramEnvironment* env)
 {
     int arg1 = getSubblock("Аргумент1")->getResult().toInt();
     int arg2 = getSubblock("Аргумент2")->getResult().toInt();
@@ -171,7 +188,7 @@ Block *EqualBlock::getNext()
 
 }
 
-void EqualsBlock::execute()
+void EqualsBlock::execute(ProgramEnvironment* env)
 {
     QString arg1 = getSubblock("Строка 1")->getResult().toString();
     QString arg2 = getSubblock("Строка 2")->getResult().toString();
@@ -195,7 +212,7 @@ Block *EqualsBlock::getNext()
 
 }
 
-void FindBlock::execute()
+void FindBlock::execute(ProgramEnvironment* env)
 {
     QString string = getSubblock("Строка")->getResult().toString();
     QString substring = getSubblock("Подстрока")->getResult().toString();
@@ -203,7 +220,7 @@ void FindBlock::execute()
     this->result = string.indexOf(substring);
 }
 
-void ReplaceBlock::execute()
+void ReplaceBlock::execute(ProgramEnvironment* env)
 {
     QString string = getSubblock("Строка")->getResult().toString();
     QString substring = getSubblock("Подстрока")->getResult().toString();
@@ -212,7 +229,7 @@ void ReplaceBlock::execute()
     this->result = string.replace(pos, substring.length(), substring);
 }
 
-void ReverseBlock::execute()
+void ReverseBlock::execute(ProgramEnvironment* env)
 {
     QString string = getSubblock("Строка")->getResult().toString();
     QString resString = "";
@@ -221,4 +238,27 @@ void ReverseBlock::execute()
     }
 
     this->result = resString;
+}
+
+void NegationBlock::execute(ProgramEnvironment* env)
+{
+    bool arg = getSubblock("Аргумент")->getResult().toBool();
+
+    this->result = int(!arg);
+}
+
+void ConjunctionBlock::execute(ProgramEnvironment* env)
+{
+    bool arg1 = getSubblock("Аргумент1")->getResult().toBool();
+    bool arg2 = getSubblock("Аргумент2")->getResult().toBool();
+
+    this->result = int(arg1 && arg2);
+}
+
+void DisjunctionBlock::execute(ProgramEnvironment* env)
+{
+    bool arg1 = getSubblock("Аргумент1")->getResult().toBool();
+    bool arg2 = getSubblock("Аргумент2")->getResult().toBool();
+
+    this->result = int(arg1 || arg2);
 }

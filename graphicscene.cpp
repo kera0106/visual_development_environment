@@ -30,6 +30,9 @@ GraphicScene::~GraphicScene()
 
 void GraphicScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    if (!isBlockSelected){
+        return;
+    }
 
     INIT_LINE_PEN();
 
@@ -168,7 +171,7 @@ void GraphicScene::drawBeginBlock(Block *block) {
 
 void GraphicScene::addBlock(QGraphicsSceneMouseEvent *event) {
 
-    auto block = BlockFabrica::fromBlockType((QWidget*)this->parent(), buttonType, event->scenePos());
+    auto block = BlockFabrica::fromBlockType(buttonType, event->scenePos());
     program.addBlock(block);
     drawBlock(block);
     previousPoint = event->scenePos();
@@ -197,6 +200,7 @@ Program& GraphicScene::getProgram()
 void GraphicScene::setButtonType(const BlockType &value)
 {
     buttonType = value;
+    isBlockSelected = true;
 }
 
 Area* GraphicScene::isInputConnectArea(QGraphicsSceneMouseEvent *event){
@@ -215,4 +219,16 @@ Area* GraphicScene::isOutputConnectArea(QGraphicsSceneMouseEvent *event){
         }
     }
     return nullptr;
+}
+
+void GraphicScene::clearCanvas(){
+    clear();
+    inputConnectionArea.clear();
+    outputConnectionArea.clear();
+
+    program = Program();
+
+    startArea = nullptr;
+
+    linkPoints.clear();
 }

@@ -10,15 +10,15 @@
 class BlockFabrica {
 public:
 
-    static Block* fromBlockType(QWidget *parent, BlockType type, QPointF pos) {
+    static Block* fromBlockType(BlockType type, QPointF pos) {
         switch (type) {
 
         case START:
             return new BeginBlock(pos);
         case INPUT:
-            return new NumberInputBlock(parent, pos);
+            return new NumberInputBlock(pos);
         case OUTPUT:
-            return new NumberOutputBlock(parent, pos);
+            return new NumberOutputBlock(pos);
         case SUM:
             return new SumBlock(pos);
         case DIFF:
@@ -40,9 +40,9 @@ public:
         case EQUAL:
             return new EqualBlock(pos);
         case INPUT_STR:
-            return new StringInputBlock(parent, pos);
+            return new StringInputBlock(pos);
         case OUTPUT_STR:
-            return new StringOutputBlock(parent, pos);
+            return new StringOutputBlock(pos);
         case CONCAT:
             return new ConcatBlock(pos);
         case SUBSTRING:
@@ -55,14 +55,20 @@ public:
             return new ReplaceBlock(pos);
         case REVERSE:
             return new ReverseBlock(pos);
+        case NEGATION:
+            return new NegationBlock(pos);
+        case CONJUNCTION:
+            return new ConjunctionBlock(pos);
+        case DISJUNCTION:
+            return new DisjunctionBlock(pos);
         }
     }
-    static Block* fromJSON(QWidget *parent, QJsonObject jsonBlock) {
+    static Block* fromJSON(QJsonObject jsonBlock) {
 
         BlockType type = (BlockType)jsonBlock["type"].toInt();
         QPointF pos(jsonBlock["pos_x"].toDouble(), jsonBlock["pos_y"].toDouble());
 
-        Block *block = BlockFabrica::fromBlockType(parent, type, pos);
+        Block *block = BlockFabrica::fromBlockType(type, pos);
         block->id = jsonBlock["id"].toInt();
 
         return block;

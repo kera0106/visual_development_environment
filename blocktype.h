@@ -22,7 +22,10 @@ enum BlockType {
     EQUALS,
     FIND,
     REPLACE,
-    REVERSE
+    REVERSE,
+    NEGATION,
+    CONJUNCTION,
+    DISJUNCTION
 };
 
 #endif // BLOCKTYPE_H

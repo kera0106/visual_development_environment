@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include "graphicscene.h"
+#include "programthread.h"
+#include "threaddialogconnector.h"
 
 #include <QMainWindow>
 
@@ -25,6 +27,8 @@ private slots:
     void on_stop_clicked();
 
     void on_save_clicked();
+
+    void on_program_finished();
 
     void slotTimer();
 
@@ -70,6 +74,14 @@ private slots:
 
     void on_reverse_clicked();
 
+    void on_clear_clicked();
+
+    void on_negation_clicked();
+
+    void on_disjunction_clicked();
+
+    void on_conjunction_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
 
@@ -77,5 +89,9 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
     GraphicScene *scene;
+
+    ProgramThread *programThread = nullptr;
+    ProgramEnvironment *programEnvironment = nullptr;
+    ThreadDialogConnector TDConnector;
 };
 #endif // MAINWINDOW_H
